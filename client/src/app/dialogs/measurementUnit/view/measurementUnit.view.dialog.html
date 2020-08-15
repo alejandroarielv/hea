@@ -1,0 +1,57 @@
+<div class="container">
+  <h3 mat-dialog-title>MEASUREMENT UNIT ID: {{data.measurementUnit.id}}</h3>
+  <mat-divider></mat-divider>
+
+  <mat-dialog-content>
+    <table>
+      <tr>
+        <td>
+          <mat-label>DESCRIPTION:</mat-label>
+        </td>
+        <td>
+          {{data.measurementUnit.description}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <mat-label>SHORT DESCRIPTION:</mat-label>
+        </td>
+        <td>
+          {{data.measurementUnit.shortDescription}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <mat-label>ENABLED:</mat-label>
+        </td>
+        <td>
+          <div *ngIf="data.measurementUnit.enabled then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
+          <ng-template #elseBlock><span class="material-icons">close</span></ng-template>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <mat-label>CREATED AT:</mat-label>
+        </td>
+        <td>
+          {{data.measurementUnit.created | date: 'dd/MM/yyyy'}}
+        </td>
+      </tr>
+    </table>
+  </mat-dialog-content>
+
+  <div mat-dialog-actions *ngIf="data.isDeleteMode then deleteModeBlock else viewBlock"></div>
+
+  <ng-template #deleteModeBlock>
+    <button mat-button (click)="deleteClick()">Delete</button>
+    <button mat-button (click)="closeClick()">Close</button>
+  </ng-template>
+  <ng-template #viewBlock>
+    <button mat-button (click)="closeClick()">Close</button>
+  </ng-template>
+
+</div>

@@ -1,0 +1,34 @@
+<div class="container">
+  <h3 mat-dialog-title>Export to CVS</h3>
+  <mat-divider></mat-divider>
+
+  <form class="mat-dialog-content" [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
+
+    <div class="form">
+      <mat-form-field appearance="fill">
+        <mat-label>Select one</mat-label>
+        <mat-select formControlName="separator">
+          <mat-option *ngFor="let delimiter of delimiters" [value]="delimiter.value">
+            {{delimiter.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="File name ex. data" formControlName="fileName">
+
+        <mat-error *ngIf="fileNameField.errors && fileNameField.touched && fileNameField.hasError('required')">
+          Please fill this field.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- action buttons-->
+    <div mat-dialog-actions>
+      <button mat-button [type]="submit" [disabled]="!form.valid">Export</button>
+      <button mat-button (click)="closeClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

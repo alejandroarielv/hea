@@ -1,0 +1,19 @@
+ng n client
+ng serve
+
+ng g c components/navigation
+ng g c components/label-list
+ng g c components/label-form
+
+ng g s services/labelService
+? ng g class resolvers/label-list-resolver
+
+Angular material
+1.- ng add @angular/material
+2.- ng g m material
+3.- npm install --save @angular-material-components/file-input
+
+PDF
+npm install --save pdfmake
+npm install pdfmake-unicode --save
+npm install @types/pdfmake

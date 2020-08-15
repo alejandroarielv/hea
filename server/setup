@@ -1,0 +1,18 @@
+npm init --yes
+npm i express morgan promise-mysql cors
+npm install -g typescript
+tsc --init
+
+config de tsconfig.json with
+"target": "es6",        /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */
+"outDir": "./build",    /* Redirect output structure to the directory. */
+
+npm i nodemon -D
+npm i properties-reader
+
+npm install @types/express -D
+npm install @types/morgan -D
+npm install @types/cors -D
+npm install @types/properties-reader
+
+update scripts in package.json

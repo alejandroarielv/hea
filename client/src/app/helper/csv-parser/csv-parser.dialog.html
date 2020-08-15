@@ -1,0 +1,39 @@
+<mat-card class="zone zone-value flex-column">
+
+  <div class="container">
+    <h3 mat-dialog-title>Import</h3>
+
+    <form class="mat-dialog-content" [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
+
+      <div class="form">
+
+        <mat-form-field color="accent">
+          <mat-label *ngIf="selectedFile; then selectedLabel else selectLabel"></mat-label>
+
+          <ng-template #selectLabel><mat-label>Choose a delimited file</mat-label></ng-template>
+          <ng-template #selectedLabel><mat-label>{{selectedFile.item(0).name}}</mat-label></ng-template>
+          <input matInput disabled>
+
+          <button mat-icon-button matSuffix *ngIf="selectedFile; then selectedButton else selectButton"></button>
+
+          <ng-template #selectButton>
+            <button mat-icon-button matSuffix (click)="fileInput.click()"><mat-icon>attach_file</mat-icon></button>
+          </ng-template>          
+          <ng-template #selectedButton>
+            <button mat-icon-button matSuffix (click)="clearSelectedFile()"><mat-icon>close</mat-icon></button>
+          </ng-template>          
+          
+          <input hidden formControlName="fileName" (change)="onChange($event.target.files)" #fileInput type="file" id="file" accept=".csv" multiple="multiple">
+        </mat-form-field>
+
+      </div>
+
+      <!-- action buttons-->
+      <div mat-dialog-actions>
+        <button mat-button [type]="submit" [disabled]="!form.valid">Import</button>
+        <button mat-button (click)="closeClick()" tabindex="-1">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+</mat-card>
