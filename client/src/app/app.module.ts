@@ -10,6 +10,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { TopNavComponent } from "./components/navigation/top-nav/top-nav.component";
+import { MenuListItemComponent } from "./components/navigation/menu-list-item/menu-list-item.component";
+import { NavService } from "./components/navigation/nav.service";
+
 
 import { LabelListComponent } from './components/label-list/label-list.component';
 import { LabelListResolver } from './resolvers/label-list-resolver';
@@ -17,23 +21,23 @@ import { LabelViewDialogComponent } from './dialogs/label/view/label.view.dialog
 import { LabelAddDialogComponent } from './dialogs/label/add/label.add.dialog.component';
 import { LabelEditDialogComponent } from './dialogs/label/edit/label.edit.dialog.component';
 
-import { WeightUnitsListComponent } from './components/weightUnits-list/weightUnits-list.component';
-import { WeightUnitsListResolver } from './resolvers/weightUnits-list-resolver';
-import { WeightUnitsViewDialogComponent } from './dialogs/weightUnits/view/weightUnits.view.dialog.component';
-import { WeightUnitsAddDialogComponent } from './dialogs/weightUnits/add/weightUnits.add.dialog.component';
-import { WeightUnitsEditDialogComponent } from './dialogs/weightUnits/edit/weightUnits.edit.dialog.component';
+import { WeightUnitListComponent } from './components/weightUnit-list/weightUnit-list.component';
+import { WeightUnitListResolver } from './resolvers/weightUnit-list-resolver';
+import { WeightUnitViewDialogComponent } from './dialogs/weightUnit/view/weightUnit.view.dialog.component';
+import { WeightUnitAddDialogComponent } from './dialogs/weightUnit/add/weightUnit.add.dialog.component';
+import { WeightUnitEditDialogComponent } from './dialogs/weightUnit/edit/weightUnit.edit.dialog.component';
 
-import { MeasurementUnitsListComponent } from './components/measurementUnits-list/measurementUnits-list.component';
-import { MeasurementUnitsListResolver } from './resolvers/measurementUnits-list-resolver';
-import { MeasurementUnitsViewDialogComponent } from './dialogs/measurementUnits/view/measurementUnits.view.dialog.component';
-import { MeasurementUnitsAddDialogComponent } from './dialogs/measurementUnits/add/measurementUnits.add.dialog.component';
-import { MeasurementUnitsEditDialogComponent } from './dialogs/measurementUnits/edit/weightUnits.edit.dialog.component';
+import { MeasurementUnitListComponent } from './components/measurementUnit-list/measurementUnit-list.component';
+import { MeasurementUnitListResolver } from './resolvers/measurementUnit-list-resolver';
+import { MeasurementUnitViewDialogComponent } from './dialogs/measurementUnit/view/measurementUnit.view.dialog.component';
+import { MeasurementUnitAddDialogComponent } from './dialogs/measurementUnit/add/measurementUnit.add.dialog.component';
+import { MeasurementUnitEditDialogComponent } from './dialogs/measurementUnit/edit/measurementUnit.edit.dialog.component';
 
-import { ShippingTypesListComponent } from './components/shippingTypes-list/shippingTypes-list.component';
-import { ShippingTypesListResolver } from './resolvers/shippingTypes-list-resolver';
-import { ShippingTypesViewDialogComponent } from './dialogs/shippingTypes/view/shippingTypes.view.dialog.component';
-import { ShippingTypesAddDialogComponent } from './dialogs/shippingTypes/add/shippingTypes.add.dialog.component';
-import { ShippingTypesEditDialogComponent } from './dialogs/shippingTypes/edit/shippingTypes.edit.dialog.component';
+import { ShippingTypeListComponent } from './components/shippingType-list/shippingType-list.component';
+import { ShippingTypeListResolver } from './resolvers/shippingType-list-resolver';
+import { ShippingTypeViewDialogComponent } from './dialogs/shippingType/view/shippingType.view.dialog.component';
+import { ShippingTypeAddDialogComponent } from './dialogs/shippingType/add/shippingType.add.dialog.component';
+import { ShippingTypeEditDialogComponent } from './dialogs/shippingType/edit/shippingType.edit.dialog.component';
 
 import { CsvDataDialogComponent } from './helper/csv-gen/csv-data.dialog.component';
 import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog.component';
@@ -41,27 +45,30 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
 @NgModule({
   declarations: [
     AppComponent,
+
     NavigationComponent,
-    
+    TopNavComponent,
+    MenuListItemComponent,
+
     LabelListComponent,
     LabelViewDialogComponent,
     LabelAddDialogComponent,
     LabelEditDialogComponent,
 
-    WeightUnitsListComponent,
-    WeightUnitsViewDialogComponent,
-    WeightUnitsAddDialogComponent,
-    WeightUnitsEditDialogComponent,
+    WeightUnitListComponent,
+    WeightUnitViewDialogComponent,
+    WeightUnitAddDialogComponent,
+    WeightUnitEditDialogComponent,
 
-    MeasurementUnitsListComponent,
-    MeasurementUnitsViewDialogComponent,
-    MeasurementUnitsAddDialogComponent,
-    MeasurementUnitsEditDialogComponent,
+    MeasurementUnitListComponent,
+    MeasurementUnitViewDialogComponent,
+    MeasurementUnitAddDialogComponent,
+    MeasurementUnitEditDialogComponent,
 
-    ShippingTypesListComponent,
-    ShippingTypesViewDialogComponent,
-    ShippingTypesAddDialogComponent,
-    ShippingTypesEditDialogComponent,
+    ShippingTypeListComponent,
+    ShippingTypeViewDialogComponent,
+    ShippingTypeAddDialogComponent,
+    ShippingTypeEditDialogComponent,
 
     CsvDataDialogComponent,
     ImportDataDialogComponent
@@ -79,10 +86,13 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
     LabelAddDialogComponent,
     LabelEditDialogComponent
   ],
-  providers: [LabelListResolver,
-              WeightUnitsListResolver,
-              MeasurementUnitsListResolver,
-              ShippingTypesListResolver],
+  providers: [
+    LabelListResolver,
+    WeightUnitListResolver,
+    MeasurementUnitListResolver,
+    ShippingTypeListResolver,
+    NavService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
