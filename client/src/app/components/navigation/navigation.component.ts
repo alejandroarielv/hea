@@ -15,14 +15,29 @@ export class NavigationComponent implements AfterViewInit {
 
   navItems: INavItem[] = [
     {
-      displayName: 'DevFestFL',
-      iconName: 'recent_actors',
-      route: 'devfestfl',
+      displayName: 'Parametrics',
+      iconName: 'group',
+      route: 'parametrics',
       children: [
         {
-          displayName: 'Speakers',
+          displayName: 'Labels',
           iconName: 'group',
-          route: 'devfestfl/speakers',
+          route: 'parametrics/labels',
+        },
+        {
+          displayName: 'Weight Units',
+          iconName: 'group',
+          route: 'parametrics/weightUnits',
+        },
+        {
+          displayName: 'Measurement Units',
+          iconName: 'group',
+          route: 'parametrics/measurementUnits',
+        },
+        {
+          displayName: 'Shipping Types',
+          iconName: 'group',
+          route: 'parametrics/shippingTypes',
         }
       ]
     }];
