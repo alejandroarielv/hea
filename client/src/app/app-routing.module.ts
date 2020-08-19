@@ -32,6 +32,15 @@ const routes: Routes = [
   },
 
   {
+    path: 'parametrics', children: [
+      { path: 'labels', redirectTo: '/labels' },
+      { path: 'weightUnits', redirectTo: '/weightUnits' },
+      { path: 'measurementUnits', redirectTo: '/measurementUnits' },
+      { path: 'shippingTypes', component: ShippingTypeListComponent }
+    ]
+  },
+
+  {
     path: 'labels',
     component: LabelListComponent,
     resolve: { labels: LabelListResolver }
