@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NavigationComponent } from './components/navigation/navigation.component';
+import { AboutComponent } from './components/about/about.component';
+import { NavComponent } from './components/mynavigation/nav.component';
 
 import { LabelFormComponent } from './components/label-form/label-form.component';
 import { LabelListComponent } from './components/label-list/label-list.component';
@@ -28,11 +29,16 @@ const routes: Routes = [
   // Beginning paths
   {
     path: 'hea',
-    component: NavigationComponent
+    component: NavComponent,
+    children: [
+      { path: '', component: AboutComponent, outlet: 'mainContent' },
+      { path: 'labels', component: LabelListComponent, outlet: 'mainContent', resolve: { labels: LabelListResolver }}
+    ]
   },
 
   {
-    path: 'parametrics', children: [
+    path: 'parametrics',
+    children: [
       { path: 'labels', redirectTo: '/labels' },
       { path: 'weightUnits', redirectTo: '/weightUnits' },
       { path: 'measurementUnits', redirectTo: '/measurementUnits' },
@@ -42,6 +48,7 @@ const routes: Routes = [
 
   {
     path: 'labels',
+    outlet: 'mainContent',
     component: LabelListComponent,
     resolve: { labels: LabelListResolver }
   },
@@ -70,8 +77,7 @@ const routes: Routes = [
     path: 'shippingTypes',
     component: ShippingTypeListComponent,
     resolve: { shippingTypes: ShippingTypeListResolver }
-  },
-
+  }
   // End paths
 ];
 

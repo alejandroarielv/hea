@@ -9,11 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 
-import { NavigationComponent } from './components/navigation/navigation.component';
-import { TopNavComponent } from "./components/navigation/top-nav/top-nav.component";
-import { MenuListItemComponent } from "./components/navigation/menu-list-item/menu-list-item.component";
-import { NavService } from "./components/navigation/nav.service";
-
+import { NavComponent } from './components/mynavigation/nav.component';
+import { AboutComponent } from './components/about/about.component';
 
 import { LabelListComponent } from './components/label-list/label-list.component';
 import { LabelListResolver } from './resolvers/label-list-resolver';
@@ -46,9 +43,8 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
   declarations: [
     AppComponent,
 
-    NavigationComponent,
-    TopNavComponent,
-    MenuListItemComponent,
+    NavComponent,
+    AboutComponent,
 
     LabelListComponent,
     LabelViewDialogComponent,
@@ -91,7 +87,6 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
     WeightUnitListResolver,
     MeasurementUnitListResolver,
     ShippingTypeListResolver,
-    NavService,
   ],
   bootstrap: [AppComponent]
 })
