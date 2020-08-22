@@ -13,28 +13,16 @@
         <mat-nav-list>
             <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
                 <span class="full-width" *ngIf="isExpanded || isShowing">Parametrics</span>
-                <mat-icon mat-list-icon>home</mat-icon>
+                <mat-icon mat-list-icon>construction</mat-icon>
                 <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">
                     expand_more</mat-icon>
             </mat-list-item>
 
             <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
                 <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['labels'] } }]">Labels</a>
-
-                <!-- [{ outlets: { primary: ['products'],sidebar: ['products'] } }] -->
-                <!-- <a [routerLink]="['/tasks', {outlets: {side: ['create']}}]" mat-fab>
-                    <mat-icon>add</mat-icon>
-                  </a> -->
-
-                <!-- <mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
-                    <span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
-                    <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}"
-                        *ngIf="isExpanded || isShowing">expand_more</mat-icon>
-                </mat-list-item>
-                <div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
-                    <mat-list-item>SubSubmenu Item 1</mat-list-item>
-                    <mat-list-item>SubSubmenu Item 2</mat-list-item>
-                </div> -->
+                <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['weightUnits'] } }]">Weight</a>
+                <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['measurementUnits'] } }]">Measurement</a>
+                <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['shippingTypes'] } }]">Shipping</a>
             </div>
         </mat-nav-list>
 

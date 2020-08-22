@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AboutComponent } from './components/about/about.component';
-import { NavComponent } from './components/mynavigation/nav.component';
+import { NavComponent } from './components/navigation/nav.component';
 
-import { LabelFormComponent } from './components/label-form/label-form.component';
 import { LabelListComponent } from './components/label-list/label-list.component';
 import { LabelListResolver } from './resolvers/label-list-resolver';
 
@@ -19,66 +18,22 @@ import { ShippingTypeListResolver } from './resolvers/shippingType-list-resolver
 
 const routes: Routes = [
 
-  // Default path
   {
     path: '',
     redirectTo: '/hea',
     pathMatch: 'full'
   },
-
-  // Beginning paths
   {
     path: 'hea',
     component: NavComponent,
     children: [
       { path: '', component: AboutComponent, outlet: 'mainContent' },
-      { path: 'labels', component: LabelListComponent, outlet: 'mainContent', resolve: { labels: LabelListResolver }}
+      { path: 'labels', component: LabelListComponent, outlet: 'mainContent', resolve: { labels: LabelListResolver } },
+      { path: 'weightUnits', component: WeightUnitListComponent, outlet: 'mainContent', resolve: { weightUnits: WeightUnitListResolver } },
+      { path: 'measurementUnits', component: MeasurementUnitListComponent, outlet: 'mainContent', resolve: { measurementUnits: MeasurementUnitListResolver } },
+      { path: 'shippingTypes', component: ShippingTypeListComponent, outlet: 'mainContent', resolve: { shippingTypes: ShippingTypeListResolver } }
     ]
-  },
-
-  {
-    path: 'parametrics',
-    children: [
-      { path: 'labels', redirectTo: '/labels' },
-      { path: 'weightUnits', redirectTo: '/weightUnits' },
-      { path: 'measurementUnits', redirectTo: '/measurementUnits' },
-      { path: 'shippingTypes', component: ShippingTypeListComponent }
-    ]
-  },
-
-  {
-    path: 'labels',
-    outlet: 'mainContent',
-    component: LabelListComponent,
-    resolve: { labels: LabelListResolver }
-  },
-  {
-    path: 'labels/add',
-    component: LabelFormComponent
-  },
-  {
-    path: 'labels/edit/:id',
-    component: LabelFormComponent
-  },
-
-  {
-    path: 'weightUnits',
-    component: WeightUnitListComponent,
-    resolve: { weightUnits: WeightUnitListResolver }
-  },
-
-  {
-    path: 'measurementUnits',
-    component: MeasurementUnitListComponent,
-    resolve: { measurementUnits: MeasurementUnitListResolver }
-  },
-
-  {
-    path: 'shippingTypes',
-    component: ShippingTypeListComponent,
-    resolve: { shippingTypes: ShippingTypeListResolver }
   }
-  // End paths
 ];
 
 

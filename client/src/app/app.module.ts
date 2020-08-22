@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 
-import { NavComponent } from './components/mynavigation/nav.component';
+import { NavComponent } from './components/navigation/nav.component';
 import { AboutComponent } from './components/about/about.component';
 
 import { LabelListComponent } from './components/label-list/label-list.component';
@@ -79,8 +79,8 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
     MaterialModule
   ],
   entryComponents: [
-    LabelAddDialogComponent,
-    LabelEditDialogComponent
+    // LabelAddDialogComponent,
+    // LabelEditDialogComponent
   ],
   providers: [
     LabelListResolver,
