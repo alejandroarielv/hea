@@ -11,6 +11,14 @@
         (mouseleave)="mouseleave()">
 
         <mat-nav-list>
+            <!-- Home -->
+            <mat-list-item class="parent">
+                <mat-icon mat-list-icon>home</mat-icon>
+                <a class="full-width" [routerLink]="['/hea', {outlets: {mainContent: ['about'] } }]">Home</a>
+            </mat-list-item>
+            <!-- Home -->
+
+            <!-- Parametrics -->
             <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
                 <span class="full-width" *ngIf="isExpanded || isShowing">Parametrics</span>
                 <mat-icon mat-list-icon>construction</mat-icon>
@@ -21,9 +29,12 @@
             <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
                 <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['labels'] } }]">Labels</a>
                 <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['weightUnits'] } }]">Weight</a>
-                <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['measurementUnits'] } }]">Measurement</a>
+                <a mat-list-item
+                    [routerLink]="['/hea', {outlets: {mainContent: ['measurementUnits'] } }]">Measurement</a>
                 <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['shippingTypes'] } }]">Shipping</a>
             </div>
+            <!-- Parametrics -->
+
         </mat-nav-list>
 
         <mat-nav-list>

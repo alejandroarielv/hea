@@ -11,9 +11,13 @@ create table labels (
     enabled boolean default true not null,
     created timestamp default current_timestamp
 );
-describe labels;
-insert into labels (description, shortDescription, image) values ('Wines', 'Wines', '');
 
+describe labels;
+
+insert into
+    labels (description, shortDescription, image)
+values
+    ('Wines', 'Wines', '');
 
 --weightUnits--
 create table weightUnits (
@@ -23,8 +27,13 @@ create table weightUnits (
     enabled boolean default true not null,
     created timestamp default current_timestamp
 );
+
 describe weightUnits;
-insert into weightUnits (description, shortDescription) values ('KG', 'KG');
+
+insert into
+    weightUnits (description, shortDescription)
+values
+    ('KG', 'KG');
 
 --measurementUnits--
 create table measurementUnits (
@@ -34,8 +43,13 @@ create table measurementUnits (
     enabled boolean default true not null,
     created timestamp default current_timestamp
 );
+
 describe measurementUnits;
-insert into measurementUnits (description, shortDescription) values ('CMS', 'CMS');
+
+insert into
+    measurementUnits (description, shortDescription)
+values
+    ('CMS', 'CMS');
 
 --shippingTypes--
 create table shippingTypes (
@@ -45,15 +59,13 @@ create table shippingTypes (
     enabled boolean default true not null,
     created timestamp default current_timestamp
 );
+
 describe shippingTypes;
-insert into shippingTypes (description, shortDescription) values ('Mercado envío', 'ME');
 
-
-
-
-
-
-
+insert into
+    shippingTypes (description, shortDescription)
+values
+    ('Mercado envío', 'ME');
 
 --PRODUCTS--
 create table products (
@@ -66,31 +78,27 @@ create table products (
     enabled boolean default true not null,
     created timestamp default current_timestamp
 );
+
 describe labels;
-insert into labels (description, shortDescription, image) values ('Wines', 'Wines', '');
 
-weightUnits
-measurementUnits
-shippingTypes
+insert into
+    labels (description, shortDescription, image)
+values
+    ('Wines', 'Wines', '');
 
-dimensions table
-    measurementUnitID
-    value
-    shapeID
+dimensions 
+table measurementUnitID value shapeID 
+Tipo de presentacion (Flavor, etc) 
+related products 
+Frequently bought together 
 
-Tipo de presentacion (Flavor, etc)
-related products
-Frequently bought together
-
-id
-SKU
-description
-shortDescription
-about
-Sizes (Pack Unit)
-shippingTypeID
-weightUnitID
-manufacturer
+id 
+SKU 
+description 
+shortDescription 
+about 
+Sizes (Pack Unit) 
+shippingTypeID 
+weightUnitID 
+manufacturer 
 Minimun stock
-
-

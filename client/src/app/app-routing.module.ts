@@ -28,6 +28,7 @@ const routes: Routes = [
     component: NavComponent,
     children: [
       { path: '', component: AboutComponent, outlet: 'mainContent' },
+      { path: 'about', component: AboutComponent, outlet: 'mainContent' },
       { path: 'labels', component: LabelListComponent, outlet: 'mainContent', resolve: { labels: LabelListResolver } },
       { path: 'weightUnits', component: WeightUnitListComponent, outlet: 'mainContent', resolve: { weightUnits: WeightUnitListResolver } },
       { path: 'measurementUnits', component: MeasurementUnitListComponent, outlet: 'mainContent', resolve: { measurementUnits: MeasurementUnitListResolver } },
