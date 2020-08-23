@@ -18,11 +18,11 @@ import { LabelViewDialogComponent } from './dialogs/label/view/label.view.dialog
 import { LabelAddDialogComponent } from './dialogs/label/add/label.add.dialog.component';
 import { LabelEditDialogComponent } from './dialogs/label/edit/label.edit.dialog.component';
 
-import { WeightUnitListComponent } from './components/weightUnit-list/weightUnit-list.component';
-import { WeightUnitListResolver } from './resolvers/weightUnit-list-resolver';
-import { WeightUnitViewDialogComponent } from './dialogs/weightUnit/view/weightUnit.view.dialog.component';
-import { WeightUnitAddDialogComponent } from './dialogs/weightUnit/add/weightUnit.add.dialog.component';
-import { WeightUnitEditDialogComponent } from './dialogs/weightUnit/edit/weightUnit.edit.dialog.component';
+import { BrandListComponent } from './components/brand-list/brand-list.component';
+import { BrandListResolver } from './resolvers/brand-list-resolver';
+import { BrandViewDialogComponent } from './dialogs/brand/view/brand.view.dialog.component';
+import { BrandAddDialogComponent } from './dialogs/brand/add/brand.add.dialog.component';
+import { BrandEditDialogComponent } from './dialogs/brand/edit/brand.edit.dialog.component';
 
 import { MeasurementUnitListComponent } from './components/measurementUnit-list/measurementUnit-list.component';
 import { MeasurementUnitListResolver } from './resolvers/measurementUnit-list-resolver';
@@ -51,10 +51,10 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
     LabelAddDialogComponent,
     LabelEditDialogComponent,
 
-    WeightUnitListComponent,
-    WeightUnitViewDialogComponent,
-    WeightUnitAddDialogComponent,
-    WeightUnitEditDialogComponent,
+    BrandListComponent,
+    BrandViewDialogComponent,
+    BrandAddDialogComponent,
+    BrandEditDialogComponent,
 
     MeasurementUnitListComponent,
     MeasurementUnitViewDialogComponent,
@@ -84,7 +84,7 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
   ],
   providers: [
     LabelListResolver,
-    WeightUnitListResolver,
+    BrandListResolver,
     MeasurementUnitListResolver,
     ShippingTypeListResolver,
   ],

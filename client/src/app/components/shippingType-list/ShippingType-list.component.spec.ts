@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShippingTypeListComponent } from './shippingType-list.component';
 
-describe('WeightUnitListComponent', () => {
+describe('ShippingTypeListComponent', () => {
   let component: ShippingTypeListComponent;
   let fixture: ComponentFixture<ShippingTypeListComponent>;
 

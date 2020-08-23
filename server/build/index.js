@@ -7,7 +7,7 @@ const properties_reader_1 = __importDefault(require("properties-reader"));
 const express_1 = __importDefault(require("express"));
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const labelsRoutes_1 = __importDefault(require("./routes/labelsRoutes"));
-const weightUnitsRoutes_1 = __importDefault(require("./routes/weightUnitsRoutes"));
+const brandsRoutes_1 = __importDefault(require("./routes/brandsRoutes"));
 const measurementUnitsRoutes_1 = __importDefault(require("./routes/measurementUnitsRoutes"));
 const shippingTypesRoutes_1 = __importDefault(require("./routes/shippingTypesRoutes"));
 const morgan_1 = __importDefault(require("morgan"));
@@ -28,7 +28,7 @@ class Server {
     routes() {
         this.app.use('/', indexRoutes_1.default);
         this.app.use('/api/labels', labelsRoutes_1.default);
-        this.app.use('/api/weightUnits', weightUnitsRoutes_1.default);
+        this.app.use('/api/brands', brandsRoutes_1.default);
         this.app.use('/api/measurementUnits', measurementUnitsRoutes_1.default);
         this.app.use('/api/shippingTypes', shippingTypesRoutes_1.default);
     }

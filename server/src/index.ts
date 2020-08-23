@@ -3,7 +3,7 @@ import express, { Application } from 'express';
 
 import indexRoutes from './routes/indexRoutes';
 import labelsRoutes from './routes/labelsRoutes';
-import weightUnitsRoutes from './routes/weightUnitsRoutes';
+import brandsRoutes from './routes/brandsRoutes';
 import measurementUnitsRoutes from './routes/measurementUnitsRoutes';
 import shippingTypesRoutes from './routes/shippingTypesRoutes';
 
@@ -31,7 +31,7 @@ class Server {
     routes(): void {
         this.app.use('/', indexRoutes);
         this.app.use('/api/labels', labelsRoutes);
-        this.app.use('/api/weightUnits', weightUnitsRoutes);
+        this.app.use('/api/brands', brandsRoutes);
         this.app.use('/api/measurementUnits', measurementUnitsRoutes);
         this.app.use('/api/shippingTypes', shippingTypesRoutes);
     }

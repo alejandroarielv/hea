@@ -1,23 +1,23 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
-import { WeightUnitsService } from '../../../services/weightUnits-service.service';
-import { IWeightUnit } from '../../../models/weightUnit';
+import { BrandsService } from '../../../services/brands-service.service';
+import { IBrand } from '../../../models/brand';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-weightUnit-edit-dialog',
-  templateUrl: 'weightUnit.edit.dialog.html',
-  styleUrls: ['weightUnit.edit.dialog.css']
+  selector: 'app-brand-edit-dialog',
+  templateUrl: 'brand.edit.dialog.html',
+  styleUrls: ['brand.edit.dialog.css']
 })
 
-export class WeightUnitEditDialogComponent {
+export class BrandEditDialogComponent {
 
   form: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<WeightUnitEditDialogComponent>,
+    public dialogRef: MatDialogRef<BrandEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private weightUnitService: WeightUnitsService,
+    private brandService: BrandsService,
     private formBuilder: FormBuilder,
   ) {
     dialogRef.disableClose = true;
@@ -26,21 +26,21 @@ export class WeightUnitEditDialogComponent {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      description: [this.data.weightUnit.description, [Validators.required, Validators.minLength(5)]],
-      shortDescription: [this.data.weightUnit.shortDescription, [Validators.required, Validators.minLength(5)]],
-      enabled: [this.data.weightUnit.enabled, []]
+      description: [this.data.brand.description, [Validators.required, Validators.minLength(5)]],
+      shortDescription: [this.data.brand.shortDescription, [Validators.required, Validators.minLength(5)]],
+      enabled: [this.data.brand.enabled, []]
     });
   }
 
-  onSubmit({ value, valid }: { value: IWeightUnit, valid: boolean }) {
+  onSubmit({ value, valid }: { value: IBrand, valid: boolean }) {
 
     if (valid) {
-      this.weightUnitService.updateWeightUnit(this.data.weightUnit.id, value).subscribe(
+      this.brandService.updateBrand(this.data.brand.id, value).subscribe(
         res => {
           this.dialogRef.close({ data: 'SAVE_BUTTON_CLICKED' });
         },
         err => {
-          console.log("Error saving WEIGHT UNIT", value);
+          console.log("Error saving BRAND ", value);
           this.dialogRef.close({ data: 'ERROR' });
         }
       );

@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.brandsController = void 0;
 const database_1 = __importDefault(require("../database"));
-class WeightUnitsController {
+class BrandsController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const brands = (yield database_1.default).query('select * from brands')
@@ -56,4 +56,4 @@ class WeightUnitsController {
         });
     }
 }
-exports.brandsController = new WeightUnitsController();
+exports.brandsController = new BrandsController();

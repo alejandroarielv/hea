@@ -1,4 +1,4 @@
-export interface IWeightUnit {
+export interface IBrand {
     id?: number;
     description: string;
     shortDescription: string;

@@ -19,8 +19,8 @@ insert into
 values
     ('Wines', 'Wines', '');
 
---weightUnits--
-create table weightUnits (
+--brands--
+create table brands (
     id int(6) not null auto_increment primary key not null,
     description varchar(20) not null,
     shortDescription varchar(10) not null,
@@ -28,10 +28,10 @@ create table weightUnits (
     created timestamp default current_timestamp
 );
 
-describe weightUnits;
+describe brands;
 
 insert into
-    weightUnits (description, shortDescription)
+    brands (description, shortDescription)
 values
     ('KG', 'KG');
 
@@ -67,38 +67,77 @@ insert into
 values
     ('Mercado envío', 'ME');
 
+--brands--
+create table brands (
+    id int(6) not null auto_increment primary key not null,
+    description varchar(20) not null,
+    shortDescription varchar(10) not null,
+    enabled boolean default true not null,
+    created timestamp default current_timestamp
+);
+
+describe brands;
+
+insert into
+    brands (description, shortDescription)
+values
+    ('Bodega López', 'Bodega López');
+
+
+
+
+
+
 --PRODUCTS--
 create table products (
     id int(6) not null auto_increment primary key not null,
     description varchar(100) not null,
     shortDescription varchar(50) not null,
     sku varchar(15) not null,
+
     size varchar(300) not null,
     image varchar(300) not null,
     enabled boolean default true not null,
     created timestamp default current_timestamp
 );
+describe products;
 
-describe labels;
-
-insert into
-    labels (description, shortDescription, image)
-values
-    ('Wines', 'Wines', '');
-
-dimensions 
-table measurementUnitID value shapeID 
-Tipo de presentacion (Flavor, etc) 
-related products 
-Frequently bought together 
-
-id 
-SKU 
+id
 description 
 shortDescription 
-about 
-Sizes (Pack Unit) 
-shippingTypeID 
-weightUnitID 
-manufacturer 
-Minimun stock
+about
+sku
+barCode
+minimunStock
+criticalStock
+maximunStock
+brandID
+
+productMeasurements
+    id  attribute - quantity - measurementUnit
+    1   pack        6          units
+    2   hight       30         cms
+    3   weight      30         grs
+    4   capacity    1          lts
+
+measurementUnit (lts, grms, cms)
+
+productShippingTypes
+
+
+productvariants att type
+suppliers 
+
+related products 
+Frequently bought together 
+priceLists
+
+receipts
+delivery orders
+stock wareshouses
+
+reglas de abastecimiento / reordering
+idiomas
+imageLists
+traceability
+dbdesigner

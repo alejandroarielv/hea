@@ -157,7 +157,7 @@ export class ShippingTypeListComponent {
 
       this.shippingTypeService.saveShippingType(newShippingType).subscribe(
         res => { },
-        err => console.log("Error adding WEIGHT UNIT", newShippingType)
+        err => console.log("Error adding shipping type", newShippingType)
       );
     }
     return true;
@@ -186,7 +186,7 @@ export class ShippingTypeListComponent {
       //pageOrientation: 'landscape',
       content: [
         {
-          text: 'WEIGHT UNITS LIST', style: 'header',
+          text: 'BRANDS LIST', style: 'header',
           //alignment: 'right'
         },
         this.getDataObjectDescription(this.data)

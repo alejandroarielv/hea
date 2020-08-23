@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IWeightUnit } from '../../models/weightUnit';
+import { IBrand } from '../../models/brand';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { WeightUnitViewDialogComponent } from '../../dialogs/weightUnit/view/weightUnit.view.dialog.component';
-import { WeightUnitAddDialogComponent } from '../../dialogs/weightUnit/add/weightUnit.add.dialog.component';
-import { WeightUnitEditDialogComponent } from '../../dialogs/weightUnit/edit/weightUnit.edit.dialog.component';
+import { BrandViewDialogComponent } from '../../dialogs/brand/view/brand.view.dialog.component';
+import { BrandAddDialogComponent } from '../../dialogs/brand/add/brand.add.dialog.component';
+import { BrandEditDialogComponent } from '../../dialogs/brand/edit/brand.edit.dialog.component';
 import { ActivatedRoute } from '@angular/router';
-import { WeightUnitsService } from '../../services/weightUnits-service.service';
+import { BrandsService } from '../../services/brands-service.service';
 import { CsvDataDialogComponent } from '../../helper/csv-gen/csv-data.dialog.component';
 import { ImportDataDialogComponent } from '../../helper/csv-parser/csv-parser.dialog.component';
 import { Papa } from 'ngx-papaparse';
@@ -22,13 +22,13 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 
 
 @Component({
-  selector: 'app-weightUnit-list',
-  templateUrl: './weightUnit-list.component.html',
-  styleUrls: ['./weightUnit-list.component.scss']
+  selector: 'app-brand-list',
+  templateUrl: './brand-list.component.html',
+  styleUrls: ['./brand-list.component.scss']
 })
-export class WeightUnitListComponent {
+export class BrandListComponent {
 
-  data: IWeightUnit[] = [];
+  data: IBrand[] = [];
   displayedColumns: string[] = ['id', 'description', 'shortDescription', 'enabled', 'options'];
   dataSource = new MatTableDataSource(this.data);
 
@@ -36,14 +36,14 @@ export class WeightUnitListComponent {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
-    private weightUnitService: WeightUnitsService,
+    private brandService: BrandsService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private papa: Papa) {
   }
 
   ngOnInit() {
-    this.data = this.activatedRoute.snapshot.data.weightUnits.weightUnits;
+    this.data = this.activatedRoute.snapshot.data.brands.brands;
     this.dataSource.data = this.data;
 
     this.dataSource.paginator = this.paginator;
@@ -62,12 +62,12 @@ export class WeightUnitListComponent {
   viewClick(id: number): void {
     const isDeleteMode = false;
     const foundIndex = this.data.findIndex(elemen => elemen.id == id);
-    const weightUnit = this.data[foundIndex];
-    this.dialog.open(WeightUnitViewDialogComponent, { data: { weightUnit, isDeleteMode } });
+    const brand = this.data[foundIndex];
+    this.dialog.open(BrandViewDialogComponent, { data: { brand, isDeleteMode } });
   }
 
   addClick(): void {
-    const dialogRef = this.dialog.open(WeightUnitAddDialogComponent);
+    const dialogRef = this.dialog.open(BrandAddDialogComponent);
 
     dialogRef.afterClosed().subscribe(
       res => {
@@ -79,8 +79,8 @@ export class WeightUnitListComponent {
 
   editClick(id: number): void {
     const foundIndex = this.data.findIndex(elemen => elemen.id == id);
-    const weightUnit = this.data[foundIndex];
-    const dialogRef = this.dialog.open(WeightUnitEditDialogComponent, { data: { weightUnit } });
+    const brand = this.data[foundIndex];
+    const dialogRef = this.dialog.open(BrandEditDialogComponent, { data: { brand } });
 
     dialogRef.afterClosed().subscribe(
       res => {
@@ -93,8 +93,8 @@ export class WeightUnitListComponent {
   deleteClick(id: number): void {
     const isDeleteMode = true;
     const foundIndex = this.data.findIndex(elemen => elemen.id == id);
-    const weightUnit = this.data[foundIndex];
-    const dialogRef = this.dialog.open(WeightUnitViewDialogComponent, { data: { weightUnit, isDeleteMode } });
+    const brand = this.data[foundIndex];
+    const dialogRef = this.dialog.open(BrandViewDialogComponent, { data: { brand, isDeleteMode } });
 
     dialogRef.afterClosed().subscribe(
       res => {
@@ -105,9 +105,9 @@ export class WeightUnitListComponent {
   }
 
   refreshTable() {
-    this.weightUnitService.getWeightUnits().subscribe(
+    this.brandService.getBrands().subscribe(
       res => {
-        this.data = res.weightUnits;
+        this.data = res.brands;
         this.dataSource.data = this.data;
         this.dataSource._updateChangeSubscription();
       },
@@ -143,21 +143,21 @@ export class WeightUnitListComponent {
 
   importData(dataToImport: Array<string>): boolean {
 
-    var newWeightUnit: IWeightUnit;
+    var newBrand: IBrand;
 
     //index 0 has column names    
     for (let index = 1; index < dataToImport.length; index++) {
       const element = dataToImport[index];
 
-      newWeightUnit = {
+      newBrand = {
         description: element[1],
         shortDescription: element[2],
         enabled: element[3] == '1'
       }
 
-      this.weightUnitService.saveWeightUnit(newWeightUnit).subscribe(
+      this.brandService.saveBrand(newBrand).subscribe(
         res => { },
-        err => console.log("Error adding WEIGHT UNIT", newWeightUnit)
+        err => console.log("Error adding BRAND", newBrand)
       );
     }
     return true;
@@ -177,7 +177,7 @@ export class WeightUnitListComponent {
 
   pdfSave = () => {
     const docDefinition = this.getPDFObjectDefinition();
-    pdfMake.createPdf(docDefinition).download('weightUnits.pdf');
+    pdfMake.createPdf(docDefinition).download('brands.pdf');
   }
 
   getPDFObjectDefinition() {
@@ -186,7 +186,7 @@ export class WeightUnitListComponent {
       //pageOrientation: 'landscape',
       content: [
         {
-          text: 'WEIGHT UNITS LIST', style: 'header',
+          text: 'BRANDS LIST', style: 'header',
           //alignment: 'right'
         },
         this.getDataObjectDescription(this.data)
@@ -206,7 +206,7 @@ export class WeightUnitListComponent {
     }
   }
 
-  getDataObjectDescription(data: IWeightUnit[]) {
+  getDataObjectDescription(data: IBrand[]) {
     return {
       table: {
         widths: ['*', '*', '*', '*'],

@@ -1,22 +1,22 @@
 import { MatDialogRef } from '@angular/material/dialog';
 import { Component } from '@angular/core';
-import { WeightUnitsService } from '../../../services/weightUnits-service.service';
-import { IWeightUnit } from '../../../models/weightUnit';
+import { BrandsService } from '../../../services/brands-service.service';
+import { IBrand } from '../../../models/brand';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-weightUnit-add-dialog',
-  templateUrl: 'weightUnit.add.dialog.html',
-  styleUrls: ['weightUnit.add.dialog.css']
+  selector: 'app-brand-add-dialog',
+  templateUrl: 'brand.add.dialog.html',
+  styleUrls: ['brand.add.dialog.css']
 })
 
-export class WeightUnitAddDialogComponent {
+export class BrandAddDialogComponent {
 
   form: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<WeightUnitAddDialogComponent>,
-    private weightUnitService: WeightUnitsService,
+    public dialogRef: MatDialogRef<BrandAddDialogComponent>,
+    private brandService: BrandsService,
     private formBuilder: FormBuilder,
   ) {
     dialogRef.disableClose = true;
@@ -31,15 +31,15 @@ export class WeightUnitAddDialogComponent {
     });
   }
 
-  onSubmit({ value, valid }: { value: IWeightUnit, valid: boolean }) {
+  onSubmit({ value, valid }: { value: IBrand, valid: boolean }) {
 
     if (valid) {
-      this.weightUnitService.saveWeightUnit(value).subscribe(
+      this.brandService.saveBrand(value).subscribe(
         res => {
           this.dialogRef.close({ data: 'ADD_BUTTON_CLICKED' });
         },
         err => {
-          console.log("Error adding WEIGHT UNIT", value);
+          console.log("Error adding BRAND ", value);
           this.dialogRef.close({ data: 'ERROR' });
         }
       );

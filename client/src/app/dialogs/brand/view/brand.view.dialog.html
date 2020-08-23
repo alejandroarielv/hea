@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 mat-dialog-title>WEIGHT UNIT ID: {{data.weightUnit.id}}</h3>
+  <h3 mat-dialog-title>BRAND ID: {{data.brand.id}}</h3>
   <mat-divider></mat-divider>
 
   <mat-dialog-content>
@@ -9,7 +9,7 @@
           <mat-label>DESCRIPTION:</mat-label>
         </td>
         <td>
-          {{data.weightUnit.description}}
+          {{data.brand.description}}
         </td>
       </tr>
 
@@ -18,7 +18,7 @@
           <mat-label>SHORT DESCRIPTION:</mat-label>
         </td>
         <td>
-          {{data.weightUnit.shortDescription}}
+          {{data.brand.shortDescription}}
         </td>
       </tr>
 
@@ -27,7 +27,7 @@
           <mat-label>ENABLED:</mat-label>
         </td>
         <td>
-          <div *ngIf="data.weightUnit.enabled then thenBlock else elseBlock"></div>
+          <div *ngIf="data.brand.enabled then thenBlock else elseBlock"></div>
           <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
           <ng-template #elseBlock><span class="material-icons">close</span></ng-template>
         </td>
@@ -38,7 +38,7 @@
           <mat-label>CREATED AT:</mat-label>
         </td>
         <td>
-          {{data.weightUnit.created | date: 'dd/MM/yyyy'}}
+          {{data.brand.created | date: 'dd/MM/yyyy'}}
         </td>
       </tr>
     </table>

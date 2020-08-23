@@ -7,8 +7,8 @@ import { NavComponent } from './components/navigation/nav.component';
 import { LabelListComponent } from './components/label-list/label-list.component';
 import { LabelListResolver } from './resolvers/label-list-resolver';
 
-import { WeightUnitListComponent } from './components/weightUnit-list/weightUnit-list.component';
-import { WeightUnitListResolver } from './resolvers/weightUnit-list-resolver';
+import { BrandListComponent } from './components/brand-list/brand-list.component';
+import { BrandListResolver } from './resolvers/brand-list-resolver';
 
 import { MeasurementUnitListComponent } from './components/measurementUnit-list/measurementUnit-list.component';
 import { MeasurementUnitListResolver } from './resolvers/measurementUnit-list-resolver';
@@ -30,7 +30,7 @@ const routes: Routes = [
       { path: '', component: AboutComponent, outlet: 'mainContent' },
       { path: 'about', component: AboutComponent, outlet: 'mainContent' },
       { path: 'labels', component: LabelListComponent, outlet: 'mainContent', resolve: { labels: LabelListResolver } },
-      { path: 'weightUnits', component: WeightUnitListComponent, outlet: 'mainContent', resolve: { weightUnits: WeightUnitListResolver } },
+      { path: 'brands', component: BrandListComponent, outlet: 'mainContent', resolve: { brands: BrandListResolver } },
       { path: 'measurementUnits', component: MeasurementUnitListComponent, outlet: 'mainContent', resolve: { measurementUnits: MeasurementUnitListResolver } },
       { path: 'shippingTypes', component: ShippingTypeListComponent, outlet: 'mainContent', resolve: { shippingTypes: ShippingTypeListResolver } }
     ]
