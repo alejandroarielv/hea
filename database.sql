@@ -113,3 +113,14 @@ idiomas
 imageLists
 traceability
 dbdesigner
+
+select json_object('ID', id, 'description', description) from products;
+
+select json_object(
+'id', p.id, 
+'description', p.description, 
+'shortDescription', p.shortDescription, 
+'about', p.about, 'sku', p.sku, 'barCode', p.barCode, 'minimunStock', p.minimunStock, 'criticalStock', p.criticalStock, 
+'maximunStock', p.maximunStock, 'brandID', p.brandID, 'image', p.image, 'enabled', p.enabled, 'created', p.created, 
+'brandDescription', b.description, 'brandShortDescription', b.shortDescription)
+from products as p, brands as b where p.brandID = b.id;
