@@ -17,13 +17,26 @@ const database_1 = __importDefault(require("../database"));
 class ProductsController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const query = `SELECT CONCAT(
+            '[', 
+            GROUP_CONCAT(JSON_OBJECT(
+                'id', p.id, 'description', p.description, 'shortDescription', p.shortDescription, 
+                'about', p.about, 'sku', p.sku, 'barCode', p.barCode, 'minimunStock', p.minimunStock, 
+                'criticalStock', p.criticalStock, 'maximunStock', p.maximunStock, 'brandID', p.brandID, 
+                'image', p.image, 'enabled', p.enabled, 'created', p.created, 'brandDescription', b.description, 
+                'brandShortDescription', b.shortDescription
+                )),
+            ']'
+        )
+        from products as p, brands as b where p.brandID = b.id;`;
+            // const query = `select json_object('id', p.id, 'description', p.description, 'shortDescription', p.shortDescription, 
+            // 'about', p.about, 'sku', p.sku, 'barCode', p.barCode, 'minimunStock', p.minimunStock, 
+            // 'criticalStock', p.criticalStock, 'maximunStock', p.maximunStock, 'brandID', p.brandID, 
+            // 'image', p.image, 'enabled', p.enabled, 'created', p.created, 'brandDescription', b.description, 
+            // 'brandShortDescription', b.shortDescription) from products as p, brands as b where p.brandID = b.id;`;
+            console.log(query);
             (yield database_1.default)
-                .query(`"
-                select json_object('id', p.id, 'description', p.description, 'shortDescription', p.shortDescription, 
-                    'about', p.about, 'sku', p.sku, 'barCode', p.barCode, 'minimunStock', p.minimunStock, 
-                    'criticalStock', p.criticalStock, 'maximunStock', p.maximunStock, 'brandID', p.brandID, 
-                    'image', p.image, 'enabled', p.enabled, 'created', p.created, 'brandDescription', b.description, 
-                    'brandShortDescription', b.shortDescription) from products as p, brands as b where p.brandID = b.id;"`)
+                .query(query)
                 .then((products) => {
                 res.status(200).json({ message: 'Listed.', products });
             });
