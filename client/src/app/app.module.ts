@@ -36,6 +36,11 @@ import { ShippingTypeViewDialogComponent } from './dialogs/shippingType/view/shi
 import { ShippingTypeAddDialogComponent } from './dialogs/shippingType/add/shippingType.add.dialog.component';
 import { ShippingTypeEditDialogComponent } from './dialogs/shippingType/edit/shippingType.edit.dialog.component';
 
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductViewDialogComponent } from './dialogs/product/view/product.view.dialog.component';
+import { ProductAddDialogComponent } from './dialogs/product/add/product.add.dialog.component';
+import { ProductEditDialogComponent } from './dialogs/product/edit/product.edit.dialog.component';
+
 import { CsvDataDialogComponent } from './helper/csv-gen/csv-data.dialog.component';
 import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog.component';
 
@@ -66,6 +71,11 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
     ShippingTypeAddDialogComponent,
     ShippingTypeEditDialogComponent,
 
+    ProductListComponent,
+    ProductViewDialogComponent,
+    ProductAddDialogComponent,
+    ProductEditDialogComponent,
+
     CsvDataDialogComponent,
     ImportDataDialogComponent
   ],
@@ -79,8 +89,6 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
     MaterialModule
   ],
   entryComponents: [
-    // LabelAddDialogComponent,
-    // LabelEditDialogComponent
   ],
   providers: [
     LabelListResolver,

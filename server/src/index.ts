@@ -1,7 +1,6 @@
 import PropertiesReader from 'properties-reader';
 import express, { Application } from 'express';
 
-import indexRoutes from './routes/indexRoutes';
 import labelsRoutes from './routes/labelsRoutes';
 import brandsRoutes from './routes/brandsRoutes';
 import measurementUnitsRoutes from './routes/measurementUnitsRoutes';
@@ -30,7 +29,6 @@ class Server {
     }
 
     routes(): void {
-        this.app.use('/', indexRoutes);
         this.app.use('/api/labels', labelsRoutes);
         this.app.use('/api/brands', brandsRoutes);
         this.app.use('/api/measurementUnits', measurementUnitsRoutes);

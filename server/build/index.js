@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const properties_reader_1 = __importDefault(require("properties-reader"));
 const express_1 = __importDefault(require("express"));
-const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const labelsRoutes_1 = __importDefault(require("./routes/labelsRoutes"));
 const brandsRoutes_1 = __importDefault(require("./routes/brandsRoutes"));
 const measurementUnitsRoutes_1 = __importDefault(require("./routes/measurementUnitsRoutes"));
@@ -27,7 +26,6 @@ class Server {
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
     routes() {
-        this.app.use('/', indexRoutes_1.default);
         this.app.use('/api/labels', labelsRoutes_1.default);
         this.app.use('/api/brands', brandsRoutes_1.default);
         this.app.use('/api/measurementUnits', measurementUnitsRoutes_1.default);

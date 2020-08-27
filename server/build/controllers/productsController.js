@@ -17,37 +17,56 @@ const database_1 = __importDefault(require("../database"));
 class ProductsController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = `SELECT CONCAT(
-            '[', 
-            GROUP_CONCAT(JSON_OBJECT(
-                'id', p.id, 'description', p.description, 'shortDescription', p.shortDescription, 
-                'about', p.about, 'sku', p.sku, 'barCode', p.barCode, 'minimunStock', p.minimunStock, 
-                'criticalStock', p.criticalStock, 'maximunStock', p.maximunStock, 'brandID', p.brandID, 
-                'image', p.image, 'enabled', p.enabled, 'created', p.created, 'brandDescription', b.description, 
-                'brandShortDescription', b.shortDescription
-                )),
-            ']'
-        )
-        from products as p, brands as b where p.brandID = b.id;`;
-            // const query = `select json_object('id', p.id, 'description', p.description, 'shortDescription', p.shortDescription, 
-            // 'about', p.about, 'sku', p.sku, 'barCode', p.barCode, 'minimunStock', p.minimunStock, 
-            // 'criticalStock', p.criticalStock, 'maximunStock', p.maximunStock, 'brandID', p.brandID, 
-            // 'image', p.image, 'enabled', p.enabled, 'created', p.created, 'brandDescription', b.description, 
-            // 'brandShortDescription', b.shortDescription) from products as p, brands as b where p.brandID = b.id;`;
-            console.log(query);
+            const query = `SELECT JSON_OBJECT(
+                        'id', id, 'description', description, 'shortDescription', shortDescription, 
+                        'about', about, 'sku', sku, 'barCode', barCode, 'minimunStock', minimunStock, 
+                        'criticalStock', criticalStock, 'maximunStock', maximunStock,
+                        'brandID', brandID, 'image', image, 'enabled', enabled, 'created', created,
+                        'child_objects', JSON_EXTRACT(
+                                        IFNULL(
+                                            (
+                                        SELECT CONCAT('[',
+                                            GROUP_CONCAT(
+                                                JSON_OBJECT(
+                                                    'id', id, 'description', description, 
+                                                    'shortDescription', shortDescription,
+                                                    'enabled', enabled, 'created', created
+                                                    )
+                                            ),']')   
+                                            FROM brands WHERE id = p.id),'[]'),'$')
+                                ) products FROM products p;`;
+            // {"id": 1, "description": "Vino cabernet", "child_objects": [{"brand_id": 1, "brand_description": "Bodega López"}]}
             (yield database_1.default)
                 .query(query)
                 .then((products) => {
-                res.status(200).json({ message: 'Listed.', products });
+                res.status(200).json({ products });
             });
         });
     }
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            (yield database_1.default).query('select * from products where id = ?', [req.params.id])
+            const query = `SELECT JSON_OBJECT(
+            'id', id, 'description', description, 'shortDescription', shortDescription, 
+            'about', about, 'sku', sku, 'barCode', barCode, 'minimunStock', minimunStock, 
+            'criticalStock', criticalStock, 'maximunStock', maximunStock,
+            'brandID', brandID, 'image', image, 'enabled', enabled, 'created', created,
+            'child_objects', JSON_EXTRACT(
+                            IFNULL(
+                                (
+                            SELECT CONCAT('[',
+                                GROUP_CONCAT(
+                                    JSON_OBJECT(
+                                        'id', id, 'description', description, 
+                                        'shortDescription', shortDescription,
+                                        'enabled', enabled, 'created', created
+                                        )
+                                ),']')   
+                                FROM brands WHERE id = p.id),'[]'),'$')
+                    ) products FROM products p where id = ?;`;
+            (yield database_1.default).query(query, [req.params.id])
                 .then((products) => {
                 if (Array.isArray(products) && products.length > 0) {
-                    res.status(200).json({ message: 'Listed.', products });
+                    res.status(200).json({ products });
                 }
                 else {
                     res.status(404).json({ message: 'Not found' });

@@ -68,13 +68,13 @@ create table products (
     about varchar(500),
     sku varchar(15) not null,
     barCode int(12),
-    minimunStock int(6),
-    criticalStock int(6),
-    maximunStock int(6),
+    minimunStock int(6) not null,
+    criticalStock int(6) not null,
+    maximunStock int(6) not null,
     brandID int(6) not null,
-    image varchar(300) not null,
+    image varchar(300),
     enabled boolean default true not null,
-    created timestamp default current_timestamp,
+    created timestamp default current_timestamp not null,
 
     INDEX (brandID),
     FOREIGN KEY (brandID) REFERENCES brands(id) ON UPDATE CASCADE ON DELETE RESTRICT

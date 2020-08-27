@@ -1,0 +1,69 @@
+<div class="container">
+  <h3 mat-dialog-title>Product ID: {{data.product.id}}</h3>
+  <mat-divider></mat-divider>
+
+  <mat-dialog-content>
+    <table>
+      <tr>
+        <td>
+          <mat-label>DESCRIPTION:</mat-label>
+        </td>
+        <td>
+          {{data.product.description}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <mat-label>SHORT DESCRIPTION:</mat-label>
+        </td>
+        <td>
+          {{data.product.shortDescription}}
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <mat-label>ENABLED:</mat-label>
+        </td>
+        <td>
+          <div *ngIf="data.product.enabled then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
+          <ng-template #elseBlock><span class="material-icons">close</span></ng-template>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <mat-label>IMAGE:</mat-label>
+        </td>
+        <td>
+          <div *ngIf="data.product.image && data.product.image!='' then imageBlock else noImageBlock"></div>
+          <ng-template #imageBlock><img [attr.src]="'assets/images/' + data.product.image"></ng-template>
+          <ng-template #noImageBlock><img [attr.src]="'assets/images/noimage.jpg'"></ng-template>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <mat-label>CREATED AT:</mat-label>
+        </td>
+        <td>
+          {{data.product.created | date: 'dd/MM/yyyy'}}
+        </td>
+      </tr>
+    </table>
+  </mat-dialog-content>
+
+  <div mat-dialog-actions *ngIf="data.isDeleteMode then deleteModeBlock else viewBlock"></div>
+
+  <ng-template #deleteModeBlock>
+    <!-- [mat-dialog-close]="'DELETE_BUTTON_CLICKED'" -->
+    <button mat-button (click)="deleteClick()">Delete</button>
+    <button mat-button (click)="closeClick()">Close</button>
+  </ng-template>
+  <ng-template #viewBlock>
+    <button mat-button (click)="closeClick()">Close</button>
+  </ng-template>
+
+</div>

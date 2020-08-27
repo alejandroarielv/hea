@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ILabel } from '../../models/label';
+import { IProduct } from '../../models/product';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { LabelViewDialogComponent } from '../../dialogs/label/view/label.view.dialog.component';
-import { LabelAddDialogComponent } from '../../dialogs/label/add/label.add.dialog.component';
-import { LabelEditDialogComponent } from '../../dialogs/label/edit/label.edit.dialog.component';
+import { ProductViewDialogComponent } from '../../dialogs/product/view/product.view.dialog.component';
+import { ProductAddDialogComponent } from '../../dialogs/product/add/product.add.dialog.component';
+import { ProductEditDialogComponent } from '../../dialogs/product/edit/product.edit.dialog.component';
 import { ActivatedRoute } from '@angular/router';
-import { LabelsService } from '../../services/labels-service.service';
+import { ProductsService } from '../../services/products-service.service';
 import { CsvDataDialogComponent } from '../../helper/csv-gen/csv-data.dialog.component';
 import { ImportDataDialogComponent } from '../../helper/csv-parser/csv-parser.dialog.component';
 import { Papa } from 'ngx-papaparse';
@@ -18,36 +18,48 @@ const pdfMakeX = require('pdfmake/build/pdfmake.js');
 const pdfFontsX = require('pdfmake-unicode/dist/pdfmake-unicode.js');
 pdfMakeX.vfs = pdfFontsX.pdfMake.vfs;
 import * as pdfMake from 'pdfmake/build/pdfmake';
+import { IBrand } from 'src/app/models/brand';
 //pdfMake
 
 
 @Component({
-  selector: 'app-label-list',
-  templateUrl: './label-list.component.html',
-  styleUrls: ['./label-list.component.scss']
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.scss']
 })
-export class LabelListComponent {
 
-  data: ILabel[] = [];
-  displayedColumns: string[] = ['id', 'description', 'shortDescription', 'enabled', 'options'];
+export class ProductListComponent implements OnInit {
+
+  data: IProduct[] = [];
+  displayedColumns: string[] = ['id', 'description', 'shortDescription', 'sku', 'enabled', 'options'];
   dataSource = new MatTableDataSource(this.data);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
-    private labelService: LabelsService,
+    private productService: ProductsService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private papa: Papa) {
   }
 
   ngOnInit() {
-    this.data = this.activatedRoute.snapshot.data.labels.labels;
-    this.dataSource.data = this.data;
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.productService.getProducts()
+      .subscribe( 
+        data => {         
+          //this.data = this.activatedRoute.snapshot.data.products.products;
+console.log('data' ,data);
+
+          this.data = data;
+          this.dataSource.data = this.data;
+          
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
+      )
+  
   }
 
   applyFilter(event: Event) {
@@ -62,12 +74,12 @@ export class LabelListComponent {
   viewClick(id: number): void {
     const isDeleteMode = false;
     const foundIndex = this.data.findIndex(elemen => elemen.id == id);
-    const label = this.data[foundIndex];
-    this.dialog.open(LabelViewDialogComponent, { data: { label, isDeleteMode } });
+    const product = this.data[foundIndex];
+    this.dialog.open(ProductViewDialogComponent, { data: { product, isDeleteMode } });
   }
 
   addClick(): void {
-    const dialogRef = this.dialog.open(LabelAddDialogComponent);
+    const dialogRef = this.dialog.open(ProductAddDialogComponent);
 
     dialogRef.afterClosed().subscribe(
       res => {
@@ -79,8 +91,8 @@ export class LabelListComponent {
 
   editClick(id: number): void {
     const foundIndex = this.data.findIndex(elemen => elemen.id == id);
-    const label = this.data[foundIndex];
-    const dialogRef = this.dialog.open(LabelEditDialogComponent, { data: { label } });
+    const product = this.data[foundIndex];
+    const dialogRef = this.dialog.open(ProductEditDialogComponent, { data: { product } });
 
     dialogRef.afterClosed().subscribe(
       res => {
@@ -93,8 +105,8 @@ export class LabelListComponent {
   deleteClick(id: number): void {
     const isDeleteMode = true;
     const foundIndex = this.data.findIndex(elemen => elemen.id == id);
-    const label = this.data[foundIndex];
-    const dialogRef = this.dialog.open(LabelViewDialogComponent, { data: { label, isDeleteMode } });
+    const product = this.data[foundIndex];
+    const dialogRef = this.dialog.open(ProductViewDialogComponent, { data: { product, isDeleteMode } });
 
     dialogRef.afterClosed().subscribe(
       res => {
@@ -105,9 +117,9 @@ export class LabelListComponent {
   }
 
   refreshTable() {
-    this.labelService.getLabels().subscribe(
+    this.productService.getProducts().subscribe(
       res => {
-        this.data = res.labels;
+        this.data = res.products;
         this.dataSource.data = this.data;
         this.dataSource._updateChangeSubscription();
       },
@@ -143,22 +155,38 @@ export class LabelListComponent {
 
   importData(dataToImport: Array<string>): boolean {
 
-    var newLabel: ILabel;
+    var newProduct: IProduct;
+    var brand: IBrand;
 
     //index 0 has column names    
     for (let index = 1; index < dataToImport.length; index++) {
       const element = dataToImport[index];
 
-      newLabel = {
+      brand = {
+        id: +element[12],
+        description: element[13],
+        shortDescription: element[14],
+        enabled: element[15] == '1'
+      };
+
+      newProduct = {
         description: element[1],
         shortDescription: element[2],
-        image: element[3],
-        enabled: element[4] == '1'
+        about: element[3],
+        sku: element[4],
+        barCode: +element[5],
+        minimunStock: +element[6],
+        criticalStock: +element[7],
+        maximunStock: +element[8],    
+        brandID: +element[9],
+        enabled: element[10] == '1',
+        image: element[11],
+        brand: brand
       }
 
-      this.labelService.saveLabel(newLabel).subscribe(
+      this.productService.saveProduct(newProduct).subscribe(
         res => { },
-        err => console.log("Error adding LABEL", newLabel)
+        err => console.log("Error adding LABEL", newProduct)
       );
     }
     return true;
@@ -178,7 +206,7 @@ export class LabelListComponent {
 
   pdfSave = () => {
     const docDefinition = this.getPDFObjectDefinition();
-    pdfMake.createPdf(docDefinition).download('labels.pdf');
+    pdfMake.createPdf(docDefinition).download('products.pdf');
   }
 
   getPDFObjectDefinition() {
@@ -207,7 +235,7 @@ export class LabelListComponent {
     }
   }
 
-  getDataObjectDescription(data: ILabel[]) {
+  getDataObjectDescription(data: IProduct[]) {
     return {
       table: {
         widths: ['*', '*', '*', '*'],
