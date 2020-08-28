@@ -22,7 +22,7 @@ class ProductsController {
                         'about', about, 'sku', sku, 'barCode', barCode, 'minimunStock', minimunStock, 
                         'criticalStock', criticalStock, 'maximunStock', maximunStock,
                         'brandID', brandID, 'image', image, 'enabled', enabled, 'created', created,
-                        'child_objects', JSON_EXTRACT(
+                        'brand', JSON_EXTRACT(
                                         IFNULL(
                                             (
                                         SELECT CONCAT('[',
@@ -31,9 +31,9 @@ class ProductsController {
                                                     'id', id, 'description', description, 
                                                     'shortDescription', shortDescription,
                                                     'enabled', enabled, 'created', created
-                                                    )
-                                            ),']')   
-                                            FROM brands WHERE id = p.id),'[]'),'$')
+                                                )
+                                            ),']'
+                                        ) FROM brands WHERE id = p.id),'[]'),'$')
                                 ) products FROM products p;`;
             // {"id": 1, "description": "Vino cabernet", "child_objects": [{"brand_id": 1, "brand_description": "Bodega López"}]}
             (yield database_1.default)
@@ -46,11 +46,11 @@ class ProductsController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = `SELECT JSON_OBJECT(
-            'id', id, 'description', description, 'shortDescription', shortDescription, 
-            'about', about, 'sku', sku, 'barCode', barCode, 'minimunStock', minimunStock, 
-            'criticalStock', criticalStock, 'maximunStock', maximunStock,
-            'brandID', brandID, 'image', image, 'enabled', enabled, 'created', created,
-            'child_objects', JSON_EXTRACT(
+                        'id', id, 'description', description, 'shortDescription', shortDescription, 
+                        'about', about, 'sku', sku, 'barCode', barCode, 'minimunStock', minimunStock, 
+                        'criticalStock', criticalStock, 'maximunStock', maximunStock,
+                        'brandID', brandID, 'image', image, 'enabled', enabled, 'created', created,
+                        'brand', JSON_EXTRACT(
                             IFNULL(
                                 (
                             SELECT CONCAT('[',
@@ -59,10 +59,10 @@ class ProductsController {
                                         'id', id, 'description', description, 
                                         'shortDescription', shortDescription,
                                         'enabled', enabled, 'created', created
-                                        )
-                                ),']')   
-                                FROM brands WHERE id = p.id),'[]'),'$')
-                    ) products FROM products p where id = ?;`;
+                                    )
+                                ),']'
+                            ) brands FROM brands WHERE id = p.id),'[]'),'$')
+                        ) products FROM products p where id = ?;`;
             (yield database_1.default).query(query, [req.params.id])
                 .then((products) => {
                 if (Array.isArray(products) && products.length > 0) {

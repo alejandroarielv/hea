@@ -39,7 +39,7 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductsService,
-    private activatedRoute: ActivatedRoute,
+    //private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private papa: Papa) {
   }
@@ -49,14 +49,21 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts()
       .subscribe( 
         data => {         
-          //this.data = this.activatedRoute.snapshot.data.products.products;
-console.log('data' ,data);
+          const jSonStr: string = data.products[0].products;
+console.log('data ', jSonStr );
+          this.data.push(JSON.parse(jSonStr));
+console.log('this.data ', this.data );
 
-          this.data = data;
           this.dataSource.data = this.data;
-          
+console.log('ds ', this.dataSource );
+
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+
+//let prod: IProduct = <IProduct>newData;
+//console.log('prod ', prod);
+//console.log('prod des ', prod.description);
+          
         }
       )
   
