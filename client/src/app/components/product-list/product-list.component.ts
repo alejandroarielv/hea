@@ -7,7 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProductViewDialogComponent } from '../../dialogs/product/view/product.view.dialog.component';
 import { ProductAddDialogComponent } from '../../dialogs/product/add/product.add.dialog.component';
 import { ProductEditDialogComponent } from '../../dialogs/product/edit/product.edit.dialog.component';
-import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../services/products-service.service';
 import { CsvDataDialogComponent } from '../../helper/csv-gen/csv-data.dialog.component';
 import { ImportDataDialogComponent } from '../../helper/csv-parser/csv-parser.dialog.component';
@@ -31,7 +30,7 @@ import { IBrand } from 'src/app/models/brand';
 export class ProductListComponent implements OnInit {
 
   data: IProduct[] = [];
-  displayedColumns: string[] = ['id', 'description', 'shortDescription', 'sku', 'enabled', 'options'];
+  displayedColumns: string[] = ['id', 'sku', 'shortDescription', 'brandDescription', 'enabled', 'options'];
   dataSource = new MatTableDataSource(this.data);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -39,7 +38,6 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductsService,
-    //private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private papa: Papa) {
   }
@@ -47,26 +45,19 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
 
     this.productService.getProducts()
-      .subscribe( 
-        data => {         
-          const jSonStr: string = data.products[0].products;
-console.log('data ', jSonStr );
-          this.data.push(JSON.parse(jSonStr));
-console.log('this.data ', this.data );
+      .subscribe(
+        data => {
+
+          data.products.forEach(elem => {
+            this.data.push(JSON.parse(elem.product));
+          });
 
           this.dataSource.data = this.data;
-console.log('ds ', this.dataSource );
-
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
-
-//let prod: IProduct = <IProduct>newData;
-//console.log('prod ', prod);
-//console.log('prod des ', prod.description);
-          
         }
       )
-  
+
   }
 
   applyFilter(event: Event) {
@@ -184,7 +175,7 @@ console.log('ds ', this.dataSource );
         barCode: +element[5],
         minimunStock: +element[6],
         criticalStock: +element[7],
-        maximunStock: +element[8],    
+        maximunStock: +element[8],
         brandID: +element[9],
         enabled: element[10] == '1',
         image: element[11],
@@ -270,6 +261,10 @@ console.log('ds ', this.dataSource );
         ]
       }
     }
+  }
+
+  getBrand(element: any): string {
+    return element.brand.shortDescription;
   }
 
 }

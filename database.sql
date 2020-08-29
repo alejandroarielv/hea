@@ -67,7 +67,7 @@ create table products (
     shortDescription varchar(100) not null,
     about varchar(500),
     sku varchar(15) not null,
-    barCode int(12),
+    barCode varchar(12),
     minimunStock int(6) not null,
     criticalStock int(6) not null,
     maximunStock int(6) not null,
@@ -82,7 +82,10 @@ create table products (
 describe products;
 
 insert into products (description, shortDescription, about, sku, barCode, minimunStock, criticalStock, maximunStock, brandID, image ) 
-values ('Vino cabernet', 'Cabernet', 'about', '', 0, 10, 5, 100, 1, '');
+values ('Mermelada artesanal', 'Mermelada', 'Es una nueva linea', 'm12345678912345', '112345678912', 10, 5, 100, 1, '');
+
+insert into products (description, shortDescription, about, sku, barCode, minimunStock, criticalStock, maximunStock, brandID, image ) 
+values ('Vino artesanal', 'Vino artesanal', 'Es una nueva linea', 'V12345678912345', '112345678912', 10, 5, 100, 1, '');
 
 
 productMeasurements
@@ -113,3 +116,41 @@ idiomas
 imageLists
 traceability
 dbdesigner
+
+
+
+
+
+SELECT 
+    p.*, 
+    JSON_OBJECT('id', id, 'project_name', project_name, 'parent_id', parent_id) js
+FROM tbl_projects p;
+
+
+SELECT JSON_OBJECT('projects', JSON_ARRAYAGG(js)) results
+FROM (
+	SELECT JSON_OBJECT(
+		'id', p.id, 
+		'project_name', p.project_name, 
+		'parent_id', p.parent_id,
+		'children', JSON_ARRAYAGG(
+			JSON_OBJECT(
+				'id', p1.id, 
+				'project_name', p1.project_name, 
+				'parent_id', p1.parent_id
+			)
+		)
+	) js
+	FROM tbl_projects p
+	LEFT JOIN tbl_projects p1 ON p.id = p1.parent_id
+	WHERE p.parent_id = 0
+	GROUP BY p.id, p.project_name, p.parent_id
+) x
+
+
+
+SELECT JSON_OBJECT(
+    "id", p.id,
+    "desc", p.description,
+    "brand", JSON_OBJECT(b.id, b.description)) as product
+FROM products as p JOIN brands as b ON p.brandID=b.id;

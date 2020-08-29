@@ -24,16 +24,16 @@
             <mat-cell *matCellDef="let element"> {{element.sku}} </mat-cell>
         </ng-container>
 
-        <!-- Desc Column -->
-        <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPTION </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
-        </ng-container>
-
         <!-- Short desc Column -->
         <ng-container matColumnDef="shortDescription">
             <mat-header-cell *matHeaderCellDef mat-sort-header> SHORT DESC. </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.shortDescription}} </mat-cell>
+        </ng-container>
+
+        <!-- Brand Column -->
+        <ng-container matColumnDef="brandDescription">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> BRAND </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{getBrand(element)}} </mat-cell>
         </ng-container>
 
         <!-- Enabled Column -->
