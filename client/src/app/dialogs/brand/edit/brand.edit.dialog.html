@@ -1,10 +1,10 @@
-<div class="container">
-  <h3 mat-dialog-title>Edit BRAND: {{data.brand.id}}</h3>
-  <mat-divider></mat-divider>
+<mat-card>
 
-  <form class="mat-dialog-content" [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
+  <div mat-dialog-title class="mat-dialog-title">Edit BRAND: {{data.brand.id}}</div>
 
-    <div class="form">
+  <form class="container" [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
+
+    <div class="item">
       <mat-form-field color="accent">
         <input matInput placeholder="Description" formControlName="description" required>
 
@@ -19,7 +19,7 @@
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-form-field color="accent">
         <input matInput placeholder="Short description" formControlName="shortDescription" required>
 
@@ -35,7 +35,7 @@
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-slide-toggle formControlName="enabled">Enabled</mat-slide-toggle>
     </div>
 
@@ -44,5 +44,7 @@
       <button mat-button [type]="submit" [disabled]="!form.valid">Save</button>
       <button mat-button (click)="closeClick()" tabindex="-1">Cancel</button>
     </div>
+    
   </form>
-</div>
+
+</mat-card>

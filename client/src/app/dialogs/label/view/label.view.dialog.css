@@ -1,18 +1,62 @@
 .mat-dialog-title {
-    font-size    : 16px;
-    align-content: flex-start;
+    font-size       : 16px;
 }
 
 .container {
-    display        : flex;
-    flex-wrap      : nowrap;
-    flex-direction : column;
-    justify-content: space-between;
-    align-items    : stretch;
-    align-content  : flex-start;
+    display            : grid;
+    width              : 100%;
+    height             : 100%;
+    grid-template-areas: 
+        "label-1 label-1 value-1"
+        "label-2 label-2 value-2"
+        "label-3 label-3 value-3"
+        "label-4 label-4 value-4"
+        "label-5 label-5 value-5";
+    grid-template-columns: 120px 1fr 3fr;
+    grid-template-rows   : 1fr 1fr 1fr 3fr 1fr;
 }
 
-.item {
-    flex  : 0 0 auto;
-    margin: 1px;
+.label-1 {
+    grid-area: label-1;
+    align-self: center;
+}
+.value-1 {
+    grid-area: value-1;
+    align-self: center;
+}
+
+.label-2 {
+    grid-area: label-2;
+    align-self: center;
+}
+.value-2 {
+    grid-area: value-2;
+    align-self: center;
+}
+
+.label-3 {
+    grid-area: label-3;
+    align-self: center;
+}
+.value-3 {
+    grid-area: value-3;
+    align-self: center;
+}
+
+.label-4 {
+    grid-area: label-4;
+    align-self: center;
+}
+.value-4 {
+    grid-area: value-4;
+    align-self: center;
+}
+
+.label-5 {
+    grid-area: label-5;
+    align-self: center;
+}
+.value-5 {
+    grid-area: value-5;
+    align-self: center;
 }

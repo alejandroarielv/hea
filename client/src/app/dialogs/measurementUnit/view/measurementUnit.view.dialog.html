@@ -1,48 +1,24 @@
-<div class="container">
-  <h3 mat-dialog-title>MEASUREMENT UNIT ID: {{data.measurementUnit.id}}</h3>
-  <mat-divider></mat-divider>
+<mat-card>
 
-  <mat-dialog-content>
-    <table>
-      <tr>
-        <td>
-          <mat-label>DESCRIPTION:</mat-label>
-        </td>
-        <td>
-          {{data.measurementUnit.description}}
-        </td>
-      </tr>
+  <div mat-dialog-title class="mat-dialog-title">MEASUREMENT UNIT ID: {{data.measurementUnit.id}}</div>
 
-      <tr>
-        <td>
-          <mat-label>SHORT DESCRIPTION:</mat-label>
-        </td>
-        <td>
-          {{data.measurementUnit.shortDescription}}
-        </td>
-      </tr>
+  <div class="container">
 
-      <tr>
-        <td>
-          <mat-label>ENABLED:</mat-label>
-        </td>
-        <td>
-          <div *ngIf="data.measurementUnit.enabled then thenBlock else elseBlock"></div>
-          <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
-          <ng-template #elseBlock><span class="material-icons">close</span></ng-template>
-        </td>
-      </tr>
+    <div class="label-1">DESCRIPTION:</div>
+    <div class="value-1">{{data.measurementUnit.description}}</div>
 
-      <tr>
-        <td>
-          <mat-label>CREATED AT:</mat-label>
-        </td>
-        <td>
-          {{data.measurementUnit.created | date: 'dd/MM/yyyy'}}
-        </td>
-      </tr>
-    </table>
-  </mat-dialog-content>
+    <div class="label-2">SHORT DESCRIPTION:</div>
+    <div class="value-2">{{data.measurementUnit.shortDescription}}</div>
+
+    <div class="label-3">ENABLED:</div>
+    <div class="value-3" *ngIf="data.measurementUnit.enabled then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
+    <ng-template #elseBlock><span class="material-icons">close</span></ng-template>
+
+    <div class="label-4">CREATED AT:</div>
+    <div class="value-4">{{data.measurementUnit.created | date: 'dd/MM/yyyy'}}</div>
+
+  </div>
 
   <div mat-dialog-actions *ngIf="data.isDeleteMode then deleteModeBlock else viewBlock"></div>
 
@@ -54,4 +30,4 @@
     <button mat-button (click)="closeClick()">Close</button>
   </ng-template>
 
-</div>
+</mat-card>

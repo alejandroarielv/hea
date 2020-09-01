@@ -1,49 +1,40 @@
 <mat-card>
+
   <div mat-dialog-title class="mat-dialog-title">Label ID: {{data.label.id}}</div>
 
   <div class="container">
 
-    <div class="item">
-      <mat-label>DESCRIPTION:</mat-label>
-      {{data.label.description}}
+    <div class="label-1">DESCRIPTION:</div>
+    <div class="value-1">{{data.label.description}}</div>
+
+    <div class="label-2">SHORT DESCRIPTION:</div>
+    <div class="value-2">{{data.label.shortDescription}}</div>
+
+    <div class="label-3">ENABLED:</div>
+    <div class="value-3" *ngIf="data.label.enabled then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock><span class="material-icons" layout-fill>check</span></ng-template>
+    <ng-template #elseBlock><span class="material-icons" layout-fill>close</span></ng-template>
+
+    <div class="label-4">IMAGE:</div>
+    <div class="value-4" *ngIf="data.label.image && data.label.image!='' then imageBlock else noImageBlock"></div>
+    <ng-template #imageBlock><img [attr.src]="'assets/images/' + data.label.image" layout-fill></ng-template>
+    <ng-template #noImageBlock><img [attr.src]="'assets/images/noimage.jpg'" layout-fill></ng-template>
+
+    <div class="label-5">CREATED AT:</div>
+    <div class="value-5">{{data.label.created | date: 'dd/MM/yyyy'}}
     </div>
-
-    <div class="item">
-      <mat-label>SHORT DESCRIPTION:</mat-label>
-      {{data.label.shortDescription}}
-    </div>
-
-    <div class="item">
-      <mat-label>ENABLED:</mat-label>
-
-      <div *ngIf="data.label.enabled then thenBlock else elseBlock"></div>
-      <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
-      <ng-template #elseBlock><span class="material-icons">close</span></ng-template>
-    </div>
-
-    <div class="item">
-      <mat-label>IMAGE:</mat-label>
-
-      <div *ngIf="data.label.image && data.label.image!='' then imageBlock else noImageBlock"></div>
-      <ng-template #imageBlock><img [attr.src]="'assets/images/' + data.label.image"></ng-template>
-      <ng-template #noImageBlock><img [attr.src]="'assets/images/noimage.jpg'"></ng-template>
-    </div>
-
-    <div class="item">
-      <mat-label>CREATED AT:</mat-label>
-      {{data.label.created | date: 'dd/MM/yyyy'}}
-    </div>
-
-
-    <div mat-dialog-actions *ngIf="data.isDeleteMode then deleteModeBlock else viewBlock"></div>
-
-    <ng-template #deleteModeBlock>
-      <button mat-button (click)="deleteClick()">Delete</button>
-      <button mat-button (click)="closeClick()">Close</button>
-    </ng-template>
-
-    <ng-template #viewBlock>
-      <button mat-button (click)="closeClick()">Close</button>
-    </ng-template>
 
   </div>
+
+  <div mat-dialog-actions *ngIf="data.isDeleteMode then deleteModeBlock else viewBlock">
+  </div>
+  <ng-template #deleteModeBlock>
+    <button mat-button (click)="deleteClick()">Delete</button>
+    <button mat-button (click)="closeClick()">Close</button>
+  </ng-template>
+
+  <ng-template #viewBlock>
+    <button mat-button (click)="closeClick()">Close</button>
+  </ng-template>
+
+</mat-card>

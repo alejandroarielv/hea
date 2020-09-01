@@ -1,48 +1,24 @@
-<div class="container">
-  <h3 mat-dialog-title>BRAND ID: {{data.brand.id}}</h3>
-  <mat-divider></mat-divider>
+<mat-card>
 
-  <mat-dialog-content>
-    <table>
-      <tr>
-        <td>
-          <mat-label>DESCRIPTION:</mat-label>
-        </td>
-        <td>
-          {{data.brand.description}}
-        </td>
-      </tr>
+  <div mat-dialog-title class="mat-dialog-title">BRAND ID: {{data.brand.id}}</div>
 
-      <tr>
-        <td>
-          <mat-label>SHORT DESCRIPTION:</mat-label>
-        </td>
-        <td>
-          {{data.brand.shortDescription}}
-        </td>
-      </tr>
+  <div class="container">
 
-      <tr>
-        <td>
-          <mat-label>ENABLED:</mat-label>
-        </td>
-        <td>
-          <div *ngIf="data.brand.enabled then thenBlock else elseBlock"></div>
-          <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
-          <ng-template #elseBlock><span class="material-icons">close</span></ng-template>
-        </td>
-      </tr>
+    <div class="label-1">DESCRIPTION:</div>
+    <div class="value-1">{{data.brand.description}}</div>
 
-      <tr>
-        <td>
-          <mat-label>CREATED AT:</mat-label>
-        </td>
-        <td>
-          {{data.brand.created | date: 'dd/MM/yyyy'}}
-        </td>
-      </tr>
-    </table>
-  </mat-dialog-content>
+    <div class="label-2">SHORT DESCRIPTION:</div>
+    <div class="value-2">{{data.brand.shortDescription}}</div>
+
+    <div class="label-3">ENABLED:</div>
+    <div class="value-3" *ngIf="data.brand.enabled then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
+    <ng-template #elseBlock><span class="material-icons">close</span></ng-template>
+
+    <div class="label-4">CREATED AT:</div>
+    <div class="value-4">{{data.brand.created | date: 'dd/MM/yyyy'}}</div>
+
+  </div>
 
   <div mat-dialog-actions *ngIf="data.isDeleteMode then deleteModeBlock else viewBlock"></div>
 
@@ -54,4 +30,4 @@
     <button mat-button (click)="closeClick()">Close</button>
   </ng-template>
 
-</div>
+</mat-card>
