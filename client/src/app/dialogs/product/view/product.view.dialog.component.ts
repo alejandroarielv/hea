@@ -15,6 +15,7 @@ export class ProductViewDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private productService: ProductsService
   ) {
+    dialogRef.disableClose = true;
   }
 
   closeClick() {

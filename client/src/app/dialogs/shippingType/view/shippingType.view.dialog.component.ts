@@ -15,6 +15,7 @@ export class ShippingTypeViewDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private shippingTypeService: ShippingTypesService
   ) {
+    dialogRef.disableClose = true;
   }
 
   closeClick() {

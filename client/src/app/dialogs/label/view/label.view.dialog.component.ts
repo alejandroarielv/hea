@@ -15,6 +15,7 @@ export class LabelViewDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private labelService: LabelsService
   ) {
+    dialogRef.disableClose = true;
   }
 
   closeClick() {

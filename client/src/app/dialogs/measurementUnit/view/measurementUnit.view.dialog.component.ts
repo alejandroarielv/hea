@@ -15,6 +15,7 @@ export class MeasurementUnitViewDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private measurementUnitService: MeasurementUnitsService
   ) {
+    dialogRef.disableClose = true;
   }
 
   closeClick() {
