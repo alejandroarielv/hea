@@ -1,19 +1,18 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    min-width: 450px;
-  }
-  
-.container > * {
-  width: 100%;
-}
-  
-.form {
-  display: flex;
-  padding-top: 6px;
+.mat-dialog-title {
+  font-size    : 16px;
+  align-content: flex-start;
 }
 
-.mat-form-field {
-  font-size: 16px;
-  flex-grow: 1;
+.container {
+  display        : flex;
+  flex-wrap      : nowrap;
+  flex-direction : column;
+  justify-content: space-between;
+  align-items    : stretch;
+  align-content  : flex-start;
+}
+
+.item {
+  flex  : 0 0 auto;
+  margin: 1px;
 }

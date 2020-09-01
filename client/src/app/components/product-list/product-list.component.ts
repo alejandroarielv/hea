@@ -18,6 +18,7 @@ const pdfFontsX = require('pdfmake-unicode/dist/pdfmake-unicode.js');
 pdfMakeX.vfs = pdfFontsX.pdfMake.vfs;
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import { IBrand } from 'src/app/models/brand';
+import { Observable } from 'rxjs';
 //pdfMake
 
 
@@ -43,11 +44,16 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getProducts();
 
+  }
+
+
+  private getProducts() {
     this.productService.getProducts()
       .subscribe(
         data => {
-
+          this.data = [];
           data.products.forEach(elem => {
             this.data.push(JSON.parse(elem.product));
           });
@@ -55,10 +61,14 @@ export class ProductListComponent implements OnInit {
           this.dataSource.data = this.data;
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+        },
+        err => {
+          console.log('Error loading products.');
+          console.log(err);
         }
-      )
-
+      );
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -82,7 +92,7 @@ export class ProductListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       res => {
         if (res.data == "ADD_BUTTON_CLICKED") {
-          this.refreshTable();
+          this.getProducts();
         }
       });
   }
@@ -95,7 +105,7 @@ export class ProductListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       res => {
         if (res.data == "SAVE_BUTTON_CLICKED") {
-          this.refreshTable();
+          this.getProducts();
         }
       });
   }
@@ -109,24 +119,11 @@ export class ProductListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       res => {
         if (res.data == "DELETE_BUTTON_CLICKED") {
-          this.refreshTable();
+          this.getProducts();
         }
       });
   }
 
-  refreshTable() {
-    this.productService.getProducts().subscribe(
-      res => {
-        this.data = res.products;
-        this.dataSource.data = this.data;
-        this.dataSource._updateChangeSubscription();
-      },
-      err => {
-        console.log('Error refreshing the table.');
-        console.log(err);
-      }
-    );
-  }
 
   loadDataToImport() {
     const dialogRef = this.dialog.open(ImportDataDialogComponent);
@@ -143,7 +140,7 @@ export class ProductListComponent implements OnInit {
 
           if (papaResult.data) {
             this.importData(papaResult.data);
-            this.refreshTable();
+            this.getProducts();
           }
 
         }
