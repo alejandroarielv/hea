@@ -1,10 +1,10 @@
-<div class="container">
-  <h3 mat-dialog-title>Add PRODUCT</h3>
-  <mat-divider></mat-divider>
+<mat-card>
 
-  <form class="mat-dialog-content" [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
+  <div mat-dialog-title class="mat-dialog-title">Add PRODUCT</div>
 
-    <div class="form">
+  <form class="container" [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
+
+    <div class="item">
       <mat-form-field color="accent">
         <input matInput placeholder="Sku" formControlName="sku" required>
 
@@ -14,7 +14,7 @@
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-form-field color="accent">
         <textarea matInput placeholder="Description" formControlName="description" required></textarea>
         <mat-hint align="end">{{descriptionField.value.length}} / 200</mat-hint>
@@ -25,7 +25,7 @@
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-form-field color="accent">
         <input matInput placeholder="Short description" formControlName="shortDescription" required>
         <mat-hint align="end">{{shortDescriptionField.value.length}} / 100</mat-hint>
@@ -42,20 +42,20 @@
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-form-field color="accent" class="example-full-width">
         <mat-label>About</mat-label>
         <textarea matInput placeholder="About this" formControlName="about"></textarea>
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-form-field color="accent">
         <input matInput placeholder="Bar code" formControlName="barCode">
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-form-field color="accent">
         <input matInput placeholder="Minimum stock" formControlName="minimunStock">
 
@@ -66,7 +66,7 @@
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-form-field color="accent">
         <input matInput placeholder="Critical stock" formControlName="criticalStock">
         <mat-error
@@ -76,7 +76,7 @@
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-form-field color="accent">
         <input matInput placeholder="Maximun stock" formControlName="maximunStock">
         <mat-error
@@ -86,7 +86,7 @@
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-form-field appearance="fill" color="accent">
         <mat-label>Brand</mat-label>
         <mat-select placeholder="Brand" formControlName="brandID">
@@ -101,13 +101,13 @@
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-form-field color="accent">
         <input matInput placeholder="Ex. file.jpg" formControlName="image">
       </mat-form-field>
     </div>
 
-    <div class="form">
+    <div class="item">
       <mat-slide-toggle formControlName="enabled">Enabled</mat-slide-toggle>
     </div>
 
@@ -117,4 +117,5 @@
       <button mat-button (click)="closeClick()" tabindex="-1">Cancel</button>
     </div>
   </form>
-</div>
+
+</mat-card>

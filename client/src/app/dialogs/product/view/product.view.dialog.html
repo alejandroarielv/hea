@@ -1,64 +1,56 @@
-<div class="container">
-  <h3 mat-dialog-title>Product ID: {{data.product.id}}</h3>
-  <mat-divider></mat-divider>
+<mat-card>
 
-  <mat-dialog-content>
-    <table>
-      <tr>
-        <td>
-          <mat-label>DESCRIPTION:</mat-label>
-        </td>
-        <td>
-          {{data.product.description}}
-        </td>
-      </tr>
+  <div mat-dialog-title class="mat-dialog-title">Product ID: {{data.product.id}}</div>
 
-      <tr>
-        <td>
-          <mat-label>SHORT DESCRIPTION:</mat-label>
-        </td>
-        <td>
-          {{data.product.shortDescription}}
-        </td>
-      </tr>
+  <div class="container">
 
-      <tr>
-        <td>
-          <mat-label>ENABLED:</mat-label>
-        </td>
-        <td>
-          <div *ngIf="data.product.enabled then thenBlock else elseBlock"></div>
-          <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
-          <ng-template #elseBlock><span class="material-icons">close</span></ng-template>
-        </td>
-      </tr>
+    <div class="label-1">SKU:</div>
+    <div class="value-1">{{data.product.sku}}</div>
 
-      <tr>
-        <td>
-          <mat-label>IMAGE:</mat-label>
-        </td>
-        <td>
-          <div *ngIf="data.product.image && data.product.image!='' then imageBlock else noImageBlock"></div>
-          <ng-template #imageBlock><img [attr.src]="'assets/images/' + data.product.image"></ng-template>
-          <ng-template #noImageBlock><img [attr.src]="'assets/images/noimage.jpg'"></ng-template>
-        </td>
-      </tr>
+    <div class="label-2">DESCRIPTION:</div>
+    <div class="value-2">{{data.product.description}}</div>
 
-      <tr>
-        <td>
-          <mat-label>CREATED AT:</mat-label>
-        </td>
-        <td>
-          {{data.product.created | date: 'dd/MM/yyyy'}}
-        </td>
-      </tr>
-    </table>
-  </mat-dialog-content>
+    <div class="label-3">SHORT DESCRIPTION:</div>
+    <div class="value-3">{{data.product.shortDescription}}</div>
+
+    <div class="label-4">ABOUT:</div>
+    <div class="value-4">{{data.product.about}}</div>
+
+    <div class="label-5">BARCOD:</div>
+    <div class="value-5">{{data.product.barCod}}</div>
+
+    <div class="label-6">MINIMUN STOCK:</div>
+    <div class="value-6">{{data.product.minimunStock}}</div>
+
+    <div class="label-7">CRITICAL STOCK:</div>
+    <div class="value-7">{{data.product.criticalStock}}</div>
+
+    <div class="label-8">MAXIMUN STOCK:</div>
+    <div class="value-8">{{data.product.maximunStock}}</div>
+
+    <div class="label-9">BRAND:</div>
+    <div class="value-9">{{data.product.brand.shortDescription}}</div>
+
+    <div class="label-10">ENABLED:</div>
+    <div class="value-10" *ngIf="data.product.enabled then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock><span class="material-icons" layout-fill>check</span></ng-template>
+    <ng-template #elseBlock><span class="material-icons" layout-fill>close</span></ng-template>
+
+
+    <div class="label-11">IMAGE:</div>
+    <div class="value-11" *ngIf="data.product.image && data.product.image!='' then imageBlock else noImageBlock"></div>
+    <ng-template #imageBlock><img [attr.src]="'assets/images/' + data.product.image" layout-fill></ng-template>
+    <ng-template #noImageBlock><img [attr.src]="'assets/images/noimage.jpg'" layout-fill></ng-template>
+
+    <div class="label-12">CREATED AT:</div>
+    <div class="value-12">{{data.product.created | date: 'dd/MM/yyyy'}}
+    </div>
+
+  </div>
 
   <div mat-dialog-actions *ngIf="data.isDeleteMode then deleteModeBlock else viewBlock"></div>
 
   <ng-template #deleteModeBlock>
-    <!-- [mat-dialog-close]="'DELETE_BUTTON_CLICKED'" -->
     <button mat-button (click)="deleteClick()">Delete</button>
     <button mat-button (click)="closeClick()">Close</button>
   </ng-template>
@@ -66,4 +58,4 @@
     <button mat-button (click)="closeClick()">Close</button>
   </ng-template>
 
-</div>
+</mat-card>
