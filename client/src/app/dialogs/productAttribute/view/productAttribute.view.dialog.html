@@ -1,0 +1,33 @@
+<mat-card>
+
+  <div mat-dialog-title class="mat-dialog-title">PRODUCT ATTRIBUTE ID: {{data.productAttribute.id}}</div>
+
+  <div class="container">
+
+    <div class="label-1">DESCRIPTION:</div>
+    <div class="value-1">{{data.productAttribute.description}}</div>
+
+    <div class="label-2">SHORT DESCRIPTION:</div>
+    <div class="value-2">{{data.productAttribute.shortDescription}}</div>
+
+    <div class="label-3">ENABLED:</div>
+    <div class="value-3" *ngIf="data.productAttribute.enabled then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
+    <ng-template #elseBlock><span class="material-icons">close</span></ng-template>
+
+    <div class="label-4">CREATED AT:</div>
+    <div class="value-4">{{data.productAttribute.created | date: 'dd/MM/yyyy'}}</div>
+
+  </div>
+
+  <div mat-dialog-actions *ngIf="data.isDeleteMode then deleteModeBlock else viewBlock"></div>
+
+  <ng-template #deleteModeBlock>
+    <button mat-button (click)="deleteClick()">Delete</button>
+    <button mat-button (click)="closeClick()">Close</button>
+  </ng-template>
+  <ng-template #viewBlock>
+    <button mat-button (click)="closeClick()">Close</button>
+  </ng-template>
+
+</mat-card>

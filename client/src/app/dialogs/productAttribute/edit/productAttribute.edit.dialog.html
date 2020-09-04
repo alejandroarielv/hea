@@ -1,0 +1,50 @@
+<mat-card>
+
+  <div mat-dialog-title class="mat-dialog-title">Edit PRODUCT ATTRIBUTE: {{data.productAttribute.id}}</div>
+
+  <form class="container" [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
+
+    <div class="item">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Description" formControlName="description" required>
+
+        <mat-error *ngIf="descriptionField.errors && descriptionField.touched && descriptionField.hasError('required')">
+          Please fill this field.
+        </mat-error>
+        <mat-error
+          *ngIf="descriptionField.errors && descriptionField.touched && descriptionField.hasError('minlength')">
+          Minimum of 30 characters.
+        </mat-error>
+
+      </mat-form-field>
+    </div>
+
+    <div class="item">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Short description" formControlName="shortDescription" required>
+
+        <mat-error
+          *ngIf="shortDescriptionField.errors && shortDescriptionField.touched && shortDescriptionField.hasError('required')">
+          Please fill this field.
+        </mat-error>
+        <mat-error
+          *ngIf="shortDescriptionField.errors && shortDescriptionField.touched && shortDescriptionField.hasError('minlength')">
+          Minimum of 20 characters.
+        </mat-error>
+
+      </mat-form-field>
+    </div>
+
+    <div class="item">
+      <mat-slide-toggle formControlName="enabled">Enabled</mat-slide-toggle>
+    </div>
+
+    <!-- action buttons-->
+    <div mat-dialog-actions>
+      <button mat-button [type]="submit" [disabled]="!form.valid">Save</button>
+      <button mat-button (click)="closeClick()" tabindex="-1">Cancel</button>
+    </div>
+    
+  </form>
+
+</mat-card>

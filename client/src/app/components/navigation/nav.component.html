@@ -20,7 +20,7 @@
 
             <!-- Parametrics -->
             <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
-                <span class="full-width" *ngIf="isExpanded || isShowing">Parametrics</span>
+                <span class="full-width" *ngIf="isExpanded || isShowing">Params</span>
                 <mat-icon mat-list-icon>construction</mat-icon>
                 <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">
                     expand_more</mat-icon>
@@ -32,8 +32,9 @@
                 <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['labels'] } }]">Labels</a>
                 <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['brands'] } }]">Brands</a>
                 <a mat-list-item
-                    [routerLink]="['/hea', {outlets: {mainContent: ['measurementUnits'] } }]">Measurement Units</a>
+                [routerLink]="['/hea', {outlets: {mainContent: ['measurementUnits'] } }]">Measurement Units</a>
                 <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['shippingTypes'] } }]">Shipping Types</a>
+                <a mat-list-item [routerLink]="['/hea', {outlets: {mainContent: ['productAttributes'] } }]">Brands</a>
             </div>
             <!-- Parametrics -->
 

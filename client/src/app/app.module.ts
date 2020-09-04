@@ -36,6 +36,12 @@ import { ShippingTypeViewDialogComponent } from './dialogs/shippingType/view/shi
 import { ShippingTypeAddDialogComponent } from './dialogs/shippingType/add/shippingType.add.dialog.component';
 import { ShippingTypeEditDialogComponent } from './dialogs/shippingType/edit/shippingType.edit.dialog.component';
 
+import { ProductAttributeListComponent } from './components/productAttribute-list/productAttribute-list.component';
+import { ProductAttributeListResolver } from './resolvers/productAttribute-list-resolver';
+import { ProductAttributeViewDialogComponent } from './dialogs/productAttribute/view/productAttribute.view.dialog.component';
+import { ProductAttributeAddDialogComponent } from './dialogs/productAttribute/add/productAttribute.add.dialog.component';
+import { ProductAttributeEditDialogComponent } from './dialogs/productAttribute/edit/productAttribute.edit.dialog.component';
+
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductViewDialogComponent } from './dialogs/product/view/product.view.dialog.component';
 import { ProductAddDialogComponent } from './dialogs/product/add/product.add.dialog.component';
@@ -71,6 +77,11 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
     ShippingTypeAddDialogComponent,
     ShippingTypeEditDialogComponent,
 
+    ProductAttributeListComponent,
+    ProductAttributeViewDialogComponent,
+    ProductAttributeAddDialogComponent,
+    ProductAttributeEditDialogComponent,
+
     ProductListComponent,
     ProductViewDialogComponent,
     ProductAddDialogComponent,
@@ -95,6 +106,7 @@ import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog
     BrandListResolver,
     MeasurementUnitListResolver,
     ShippingTypeListResolver,
+    ProductAttributeListResolver
   ],
   bootstrap: [AppComponent]
 })

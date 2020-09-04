@@ -5,6 +5,7 @@ import labelsRoutes from './routes/labelsRoutes';
 import brandsRoutes from './routes/brandsRoutes';
 import measurementUnitsRoutes from './routes/measurementUnitsRoutes';
 import shippingTypesRoutes from './routes/shippingTypesRoutes';
+import productAttributesRoutes from './routes/productAttributesRoutes';
 import productsRoutes from './routes/productsRoutes';
 
 import morgan from 'morgan';
@@ -33,6 +34,7 @@ class Server {
         this.app.use('/api/brands', brandsRoutes);
         this.app.use('/api/measurementUnits', measurementUnitsRoutes);
         this.app.use('/api/shippingTypes', shippingTypesRoutes);
+        this.app.use('/api/productAttributes', productAttributesRoutes);
         this.app.use('/api/products', productsRoutes);
     }
 

@@ -1,0 +1,18 @@
+.mat-dialog-title {
+  font-size    : 16px;
+  align-content: flex-start;
+}
+
+.container {
+  display        : flex;
+  flex-wrap      : nowrap;
+  flex-direction : column;
+  justify-content: space-between;
+  align-items    : stretch;
+  align-content  : flex-start;
+}
+
+.item {
+  flex  : 0 0 auto;
+  margin: 1px;
+}
