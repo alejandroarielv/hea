@@ -9,6 +9,7 @@ const labelsRoutes_1 = __importDefault(require("./routes/labelsRoutes"));
 const brandsRoutes_1 = __importDefault(require("./routes/brandsRoutes"));
 const measurementUnitsRoutes_1 = __importDefault(require("./routes/measurementUnitsRoutes"));
 const shippingTypesRoutes_1 = __importDefault(require("./routes/shippingTypesRoutes"));
+const productAttributesRoutes_1 = __importDefault(require("./routes/productAttributesRoutes"));
 const productsRoutes_1 = __importDefault(require("./routes/productsRoutes"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
@@ -30,6 +31,7 @@ class Server {
         this.app.use('/api/brands', brandsRoutes_1.default);
         this.app.use('/api/measurementUnits', measurementUnitsRoutes_1.default);
         this.app.use('/api/shippingTypes', shippingTypesRoutes_1.default);
+        this.app.use('/api/productAttributes', productAttributesRoutes_1.default);
         this.app.use('/api/products', productsRoutes_1.default);
     }
     start() {
