@@ -11,9 +11,16 @@
         "label-2 label-2 value-2"
         "label-3 label-3 value-3"
         "label-4 label-4 value-4"
-        "label-5 label-5 value-5";
+        "label-5 label-5 value-5"
+        "label-6 label-6 value-6"
+        "label-7 label-7 value-7"
+        "label-8 label-8 value-8"
+        "label-9 label-9 value-9"
+        "label-10 label-10 value-10"
+        "label-11 label-11 value-11"
+        "label-12 label-12 value-12";
     grid-template-columns: 120px 1fr 3fr;
-    grid-template-rows   : 1fr 1fr 1fr 3fr 1fr;
+    grid-template-rows   : 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 3fr 1fr;
 }
 
 .label-1 {
@@ -58,5 +65,68 @@
 }
 .value-5 {
     grid-area: value-5;
+    align-self: center;
+}
+
+.label-6 {
+    grid-area: label-6;
+    align-self: center;
+}
+.value-6 {
+    grid-area: value-6;
+    align-self: center;
+}
+
+.label-7 {
+    grid-area: label-7;
+    align-self: center;
+}
+.value-7 {
+    grid-area: value-7;
+    align-self: center;
+}
+
+.label-8 {
+    grid-area: label-8;
+    align-self: center;
+}
+.value-8 {
+    grid-area: value-8;
+    align-self: center;
+}
+
+.label-9 {
+    grid-area: label-9;
+    align-self: center;
+}
+.value-9 {
+    grid-area: value-9;
+    align-self: center;
+}
+
+.label-10 {
+    grid-area: label-10;
+    align-self: center;
+}
+.value-10 {
+    grid-area: value-10;
+    align-self: center;
+}
+
+.label-11 {
+    grid-area: label-11;
+    align-self: center;
+}
+.value-11 {
+    grid-area: value-11;
+    align-self: center;
+}
+
+.label-12 {
+    grid-area: label-12;
+    align-self: center;
+}
+.value-12 {
+    grid-area: value-12;
     align-self: center;
 }

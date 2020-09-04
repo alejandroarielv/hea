@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=100%, initial-scale=1.0">
+    <title>Grid test</title>
+
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(25px, auto);
+            column-gap: 5px;
+            row-gap: 10px;
+            align-items: center;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .value {
+            background-color: #e8e8ed;
+            /* border-style: groove; */
+        }
+
+        .block1-3 {
+            grid-column: 1/3;
+        }
+
+        .block1-5 {
+            grid-column: 1/5;
+        }
+
+        .block2-5 {
+            grid-column: 2/5;
+        }
+
+        .block3-5 {
+            grid-column: 3/5;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="margin: auto;  max-width: 50%;">
+
+        <div class="container">
+            <div class="label">SKU:</div>
+            <div class="value">012345678912345</div>
+
+            <div class="label">BARCODE:</div>
+            <div class="value">012345678912</div>
+
+            <div class="label">DESCRIPTION:</div>
+            <div class="block2-5 value">Vino Cabernet</div>
+
+            <div class="label">SHORT DESCRIPTION:</div>
+            <div class="block2-5 value">Vino Cabernet</div>
+
+            <div class="label block1-2">ABOUT:</div>
+            <div class="block2-5 value">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores ullam repellat
+                repellendus quia voluptas iste error aliquid molestiae pariatur nisi corporis dolorum asperiores,
+                voluptate facilis in omnis voluptates sunt facere!
+            </div>
+
+            <div class="block1-5 label">MEASUREMENT UNITS</div>
+            <div class="label">ID</div>
+            <div class="label">ATTRIBUTE</div>
+            <div class="label">QUANTITY</div>
+            <div class="label">UNIT</div>
+
+            <div class="value">1</div>
+            <div class="value">Pack</div>
+            <div class="value">6</div>
+            <div class="value">Unidades</div>
+
+            <div class="value">2</div>
+            <div class="value">Altura</div>
+            <div class="value">30</div>
+            <div class="value">Cms</div>
+
+            <div class="value">3</div>
+            <div class="value">Capacidad</div>
+            <div class="value">1</div>
+            <div class="value">Lts</div>
+
+            <div class="label">STOCK:</div>
+            <div class="value">MINIMUN 10</div>
+            <div class="value">CRITICAL 5</div>
+            <div class="value">MAXIMUN 100</div>
+
+            <div class="label">BRAND:</div>
+            <div class="value">Bodega López</div>
+
+            <div class="label">ENABLED:</div>
+            <div class="value">-</div>
+
+            <div class="label">LABELS:</div>
+            <div class="block2-5 value">Lorem ipsum dolor sit amet consectetur adipisicing elit. A fugiat quod corrupti
+                voluptatem autem hic quisquam amet sunt suscipit animi.</div>
+
+            <div class="label">SHIPPING TYPES:</div>
+            <div class="block2-5 value">Lorem ipsum dolor sit amet consectetur adipisicing elit. A fugiat quod corrupti
+                voluptatem autem hic quisquam amet sunt suscipit animi.</div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

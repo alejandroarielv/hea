@@ -59,8 +59,9 @@ create table brands (
 describe brands;
 insert into brands (description, shortDescription) values ('Bodega López', 'Bodega López');
 
-
+------------
 --PRODUCTS--
+------------
 create table products (
     id int(7) not null auto_increment primary key not null,
     description varchar(200) not null,
@@ -86,6 +87,46 @@ values ('Mermelada artesanal', 'Mermelada', 'Es una nueva linea', 'm123456789123
 
 insert into products (description, shortDescription, about, sku, barCode, minimunStock, criticalStock, maximunStock, brandID, image ) 
 values ('Vino artesanal', 'Vino artesanal', 'Es una nueva linea', 'V12345678912345', '112345678912', 10, 5, 100, 1, '');
+
+-----------------
+--product_label--
+-----------------
+
+create table product_label (
+    id int(7) not null auto_increment primary key not null,
+    productID int(7) not null,
+    labelID int(6) not null,
+    created timestamp default current_timestamp not null,
+
+    INDEX (productID),
+    FOREIGN KEY (productID) REFERENCES products(id) ON UPDATE CASCADE ON DELETE RESTRICT);
+
+create UNIQUE INDEX productID_labelID
+ON product_label (productID, labelID);
+describe product_label;
+
+
+--------------------
+--productAtributes--
+--------------------
+create table productAttributes (
+    id int(6) not null auto_increment primary key not null,
+    description varchar(30) not null,
+    shortDescription varchar(20) not null,
+    enabled boolean default true not null,
+    created timestamp default current_timestamp
+);
+
+describe productAttributes;
+insert into productAttributes (description, shortDescription) values ('Pack', 'Pack');
+insert into productAttributes (description, shortDescription) values ('Alto', 'Alto');
+insert into productAttributes (description, shortDescription) values ('Ancho', 'Ancho');
+insert into productAttributes (description, shortDescription) values ('Volumen', 'Volumen');
+
+
+
+
+
 
 
 productMeasurements
