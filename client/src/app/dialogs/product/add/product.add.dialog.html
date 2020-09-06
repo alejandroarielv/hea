@@ -2,9 +2,9 @@
 
   <div mat-dialog-title class="mat-dialog-title">Add PRODUCT</div>
 
-  <form class="container" [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
+  <form class="container" mat-dialog-content [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
 
-    <div class="item">
+    <div>
       <mat-form-field color="accent">
         <input matInput placeholder="Sku" formControlName="sku" required>
 
@@ -14,8 +14,34 @@
       </mat-form-field>
     </div>
 
-    <div class="item">
+    <div>
       <mat-form-field color="accent">
+        <input matInput placeholder="Bar code" formControlName="barCode">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="fill" color="accent">
+        <mat-label>Brand</mat-label>
+        <mat-select placeholder="Brand" formControlName="brandID">
+          <mat-option *ngFor="let brand of brands" [value]="brand.id">
+            {{brand.shortDescription}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="brandIDField.errors && brandIDField.touched && brandIDField.hasError('required')">
+          Please fill this field.
+        </mat-error>
+
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-slide-toggle formControlName="enabled">Enabled</mat-slide-toggle>
+    </div>
+
+
+    <div class="block1-5">
+      <mat-form-field color="accent" class="formField">
         <textarea matInput placeholder="Description" formControlName="description" required></textarea>
         <mat-hint align="end">{{descriptionField.value.length}} / 200</mat-hint>
 
@@ -25,8 +51,8 @@
       </mat-form-field>
     </div>
 
-    <div class="item">
-      <mat-form-field color="accent">
+    <div class="block1-5">
+      <mat-form-field color="accent" class="formField">
         <input matInput placeholder="Short description" formControlName="shortDescription" required>
         <mat-hint align="end">{{shortDescriptionField.value.length}} / 100</mat-hint>
 
@@ -42,20 +68,38 @@
       </mat-form-field>
     </div>
 
-    <div class="item">
-      <mat-form-field color="accent" class="example-full-width">
+    <div class="block1-5">
+      <mat-form-field color="accent" class="formField">
         <mat-label>About</mat-label>
         <textarea matInput placeholder="About this" formControlName="about"></textarea>
       </mat-form-field>
     </div>
 
-    <div class="item">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Bar code" formControlName="barCode">
-      </mat-form-field>
-    </div>
 
-    <div class="item">
+    <div class="block1-5">MEASUREMENT UNITS</div>
+    <div>ID</div>
+    <div>ATTRIBUTE</div>
+    <div>QUANTITY</div>
+    <div>UNIT</div>
+
+    <div>1</div>
+    <div>Pack</div>
+    <div>6</div>
+    <div>Unidades</div>
+
+    <div>2</div>
+    <div>Altura</div>
+    <div>30</div>
+    <div>Cms</div>
+
+    <div>3</div>
+    <div>Capacidad</div>
+    <div>1</div>
+    <div>Lts</div>
+
+    <div>STOCK:</div>
+
+    <div>
       <mat-form-field color="accent">
         <input matInput placeholder="Minimum stock" formControlName="minimunStock">
 
@@ -66,7 +110,7 @@
       </mat-form-field>
     </div>
 
-    <div class="item">
+    <div>
       <mat-form-field color="accent">
         <input matInput placeholder="Critical stock" formControlName="criticalStock">
         <mat-error
@@ -76,7 +120,7 @@
       </mat-form-field>
     </div>
 
-    <div class="item">
+    <div>
       <mat-form-field color="accent">
         <input matInput placeholder="Maximun stock" formControlName="maximunStock">
         <mat-error
@@ -86,30 +130,21 @@
       </mat-form-field>
     </div>
 
-    <div class="item">
-      <mat-form-field appearance="fill" color="accent">
-        <mat-label>Brand</mat-label>
-        <mat-select placeholder="Brand" formControlName="brandID">
-          <mat-option *ngFor="let brand of brands" [value]="brand.id">
-            {{brand.shortDescription}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="brandIDField.errors && brandIDField.touched && brandIDField.hasError('required')">
-          Please fill this field.
-        </mat-error>
-
-      </mat-form-field>
+    <div class="block1-5">
+      <chips-selection></chips-selection>
     </div>
 
-    <div class="item">
+    <div class="block1-5">
+      <chips-selection></chips-selection>
+    </div>
+
+
+    <div class="block1-5">
       <mat-form-field color="accent">
         <input matInput placeholder="Ex. file.jpg" formControlName="image">
       </mat-form-field>
     </div>
 
-    <div class="item">
-      <mat-slide-toggle formControlName="enabled">Enabled</mat-slide-toggle>
-    </div>
 
     <!-- action buttons-->
     <div mat-dialog-actions>

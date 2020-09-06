@@ -1,0 +1,19 @@
+<mat-form-field color="primary" style="width: 100%">
+    <mat-label> {{label}}</mat-label>
+    <mat-select [formControl]="fruitCtrl" #multiSelect multiple>
+      <mat-select-trigger>
+        <mat-chip-list #chipList selected>
+          <ng-container>
+            <mat-chip color="primary" *ngFor="let fruit of fruitCtrl?.value; let matChipIndex = index" class="font-weight-normal" selected
+              [removable]="true" (removed)="onRemoveFruit(multiSelect, matChipIndex)">
+              {{fruit}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </ng-container>
+        </mat-chip-list>
+      </mat-select-trigger>
+      <mat-option *ngFor="let item of allFruits" [value]="item">
+        {{item}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>

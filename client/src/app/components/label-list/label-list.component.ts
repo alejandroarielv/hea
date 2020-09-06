@@ -19,6 +19,7 @@ const pdfFontsX = require('pdfmake-unicode/dist/pdfmake-unicode.js');
 pdfMakeX.vfs = pdfFontsX.pdfMake.vfs;
 import * as pdfMake from 'pdfmake/build/pdfmake';
 //pdfMake
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class LabelListComponent {
     private labelService: LabelsService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
-    private papa: Papa) {
+    private papa: Papa,
+    private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -72,6 +74,7 @@ export class LabelListComponent {
     dialogRef.afterClosed().subscribe(
       res => {
         if (res.data == "ADD_BUTTON_CLICKED") {
+          this.openSnackBar('Updated.')
           this.refreshTable();
         }
       });
@@ -85,6 +88,7 @@ export class LabelListComponent {
     dialogRef.afterClosed().subscribe(
       res => {
         if (res.data == "SAVE_BUTTON_CLICKED") {
+          this.openSnackBar('Updated.')
           this.refreshTable();
         }
       });
@@ -100,6 +104,7 @@ export class LabelListComponent {
       res => {
         if (res.data == "DELETE_BUTTON_CLICKED") {
           this.refreshTable();
+          this.openSnackBar('Updated.')
         }
       });
   }
@@ -237,4 +242,9 @@ export class LabelListComponent {
     }
   }
 
+  private openSnackBar(message: string) {
+    this._snackBar.open(message, '', { duration: 1000, });
+  }
+
 }
+
