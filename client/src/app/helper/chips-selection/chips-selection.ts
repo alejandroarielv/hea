@@ -2,6 +2,7 @@ import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import { Component, Input, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatSelect } from "@angular/material/select";
+import { IDataToSelect } from './IDataToSelect-chips-selection';
 
 @Component({
     selector: "chips-selection",
@@ -12,16 +13,14 @@ import { MatSelect } from "@angular/material/select";
 export class ChipsSelection implements OnInit {
 
     @Input("label") label: string;
-    @Input("allData") allData: string[];
+    @Input("dataToSelect") dataToSelect: IDataToSelect[];
 
-    visible = true;
-    selectable = true;
     removable = true;
     separatorKeysCodes: number[] = [ENTER, COMMA];
 
     formDataCtrl = new FormControl([]);
 
-    constructor() {}
+    constructor() { }
 
     ngOnInit() {
     }

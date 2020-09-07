@@ -9,6 +9,8 @@ import { IProduct } from '../../../models/product';
 import { ILabel } from '../../../models/label';
 import { IBrand } from '../../../models/brand';
 import { IShippingType } from '../../../models/shippingType';
+import { IDataToSelect } from '../../../helper/chips-selection/IDataToSelect-chips-selection';
+
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -22,10 +24,10 @@ export class ProductAddDialogComponent implements OnInit {
   form: FormGroup;
 
   labels: ILabel[];
-  labelsToSelect: string[] = [];
+  labelsToSelect: IDataToSelect[] = [];
 
   shippingTypes: IShippingType[];
-  shippingTypesToSelect: string[] = [];
+  shippingTypesToSelect: IDataToSelect[] = [];
 
   brands: IBrand[];
 
@@ -59,7 +61,7 @@ export class ProductAddDialogComponent implements OnInit {
 
   private prepareLabelsToSelect() {
     this.labels.forEach(el => {
-      this.labelsToSelect.push(el.shortDescription);
+      this.labelsToSelect.push({key: el.id, value: el.shortDescription});
     });
   }
 
@@ -75,7 +77,7 @@ export class ProductAddDialogComponent implements OnInit {
 
   private prepareShippingTypesToSelect() {
     this.shippingTypes.forEach(el => {
-      this.shippingTypesToSelect.push(el.shortDescription);
+      this.shippingTypesToSelect.push({key: el.id, value: el.shortDescription});
     });
   }
 

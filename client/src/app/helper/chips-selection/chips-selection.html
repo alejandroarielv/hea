@@ -1,4 +1,4 @@
-<mat-form-field color="primary" style="width: 100%">
+<mat-form-field color="primary" class="container">
 
   <mat-label> {{label}}</mat-label>
 
@@ -6,20 +6,20 @@
 
     <mat-select-trigger>
       <mat-chip-list #chipList selected>
-        
+
         <ng-container>
           <mat-chip color="primary" *ngFor="let data of formDataCtrl?.value; let matChipIndex = index"
-            class="font-weight-normal" selected [removable]="true" (removed)="onRemove(multiSelect, matChipIndex)">
+            class="font-weight-normal" selected [removable]="removable" (removed)="onRemove(multiSelect, matChipIndex)">
             {{data}}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>
         </ng-container>
-      
+
       </mat-chip-list>
     </mat-select-trigger>
 
-    <mat-option *ngFor="let item of allData" [value]="item">
-      {{item}}
+    <mat-option *ngFor="let item of dataToSelect" [value]="item.value">
+      {{item.value}}
     </mat-option>
 
   </mat-select>
