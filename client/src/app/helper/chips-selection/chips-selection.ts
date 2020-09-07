@@ -1,13 +1,7 @@
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { MatAutocomplete } from "@angular/material/autocomplete";
-//MatAutocompleteSelectedEvent, 
-// import { MatChipInputEvent } from "@angular/material/chips";
-// import { Observable } from "rxjs";
-// import { map, startWith } from "rxjs/operators";
 import { MatSelect } from "@angular/material/select";
-//, MatSelectChange
 
 @Component({
     selector: "chips-selection",
@@ -15,29 +9,29 @@ import { MatSelect } from "@angular/material/select";
     styleUrls: ["chips-selection.scss"]
 })
 
-export class ChipsSelection {
+export class ChipsSelection implements OnInit {
+
+    @Input("label") label: string;
+    @Input("allData") allData: string[];
+
     visible = true;
     selectable = true;
     removable = true;
     separatorKeysCodes: number[] = [ENTER, COMMA];
 
-    fruitCtrl = new FormControl([]);
+    formDataCtrl = new FormControl([]);
 
-    label = "Labels";
-    fruits: string[] = ["Lemon"];
-    allFruits: string[] = ["Apple", "Lemon", "Lime", "Orange", "Strawberry"];
+    constructor() {}
 
-    @ViewChild("fruitInput") fruitInput: ElementRef<HTMLInputElement>;
-    @ViewChild("auto") matAutocomplete: MatAutocomplete;
+    ngOnInit() {
+    }
 
-    constructor() { }
+    onRemove(multiSelect: MatSelect, matChipIndex: number) {
+        const selectedData = [...this.formDataCtrl.value];
+        selectedData.splice(matChipIndex, 1);
+        this.formDataCtrl.patchValue(selectedData);
 
-    onRemoveFruit(multiSelect: MatSelect, matChipIndex: number) {
-        const selectedFruits = [...this.fruitCtrl.value];
-        selectedFruits.splice(matChipIndex, 1);
-        this.fruitCtrl.patchValue(selectedFruits);
-
-        multiSelect.writeValue(selectedFruits);
+        multiSelect.writeValue(selectedData);
     }
 
 }

@@ -1,10 +1,14 @@
 import { MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../../services/products-service.service';
+import { LabelsService } from '../../../services/labels-service.service';
 import { BrandsService } from '../../../services/brands-service.service';
+import { ShippingTypesService } from '../../../services/shippingTypes-service.service';
 
 import { IProduct } from '../../../models/product';
+import { ILabel } from '../../../models/label';
 import { IBrand } from '../../../models/brand';
+import { IShippingType } from '../../../models/shippingType';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -16,11 +20,20 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 export class ProductAddDialogComponent implements OnInit {
 
   form: FormGroup;
+
+  labels: ILabel[];
+  labelsToSelect: string[] = [];
+
+  shippingTypes: IShippingType[];
+  shippingTypesToSelect: string[] = [];
+
   brands: IBrand[];
 
   constructor(
     public dialogRef: MatDialogRef<ProductAddDialogComponent>,
     private productService: ProductsService,
+    private labelService: LabelsService,
+    private shippingTypeService: ShippingTypesService,
     private brandService: BrandsService,
     private formBuilder: FormBuilder,
   ) {
@@ -29,7 +42,41 @@ export class ProductAddDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getLabels();
+    this.getShippingTypes();
+
     this.getBrands();
+  }
+
+  private getLabels() {
+    this.labelService.getLabels().subscribe(
+      data => {
+        this.labels = data.labels;
+        this.prepareLabelsToSelect();
+      }
+    );
+  }
+
+  private prepareLabelsToSelect() {
+    this.labels.forEach(el => {
+      this.labelsToSelect.push(el.shortDescription);
+    });
+  }
+
+
+  private getShippingTypes() {
+    this.shippingTypeService.getShippingTypes().subscribe(
+      data => {
+        this.shippingTypes = data.shippingTypes;
+        this.prepareShippingTypesToSelect();
+      }
+    );
+  }
+
+  private prepareShippingTypesToSelect() {
+    this.shippingTypes.forEach(el => {
+      this.shippingTypesToSelect.push(el.shortDescription);
+    });
   }
 
   private getBrands() {
