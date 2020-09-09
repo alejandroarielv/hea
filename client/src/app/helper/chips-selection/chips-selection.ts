@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatSelect } from "@angular/material/select";
 import { IDataToSelect } from './IDataToSelect-chips-selection';
@@ -10,7 +10,7 @@ import { IDataToSelect } from './IDataToSelect-chips-selection';
     styleUrls: ["chips-selection.scss"]
 })
 
-export class ChipsSelection implements OnInit {
+export class ChipsSelection {
 
     @Input("label") label: string;
     @Input("dataToSelect") dataToSelect: IDataToSelect[];
@@ -22,7 +22,9 @@ export class ChipsSelection implements OnInit {
 
     constructor() { }
 
-    ngOnInit() {
+    getSelectedItems(): IDataToSelect[] {
+        const selectedData = [...this.formDataCtrl.value];
+        return this.dataToSelect.filter((dataToSelect) => selectedData.includes(dataToSelect.value));
     }
 
     onRemove(multiSelect: MatSelect, matChipIndex: number) {
