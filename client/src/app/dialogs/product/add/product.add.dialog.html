@@ -20,7 +20,7 @@
       </mat-form-field>
     </div>
 
-    <div>
+    <div class="block3-5">
       <mat-form-field appearance="fill" color="accent">
         <mat-label>Brand</mat-label>
         <mat-select placeholder="Brand" formControlName="brandID">
@@ -34,11 +34,6 @@
 
       </mat-form-field>
     </div>
-
-    <div>
-      <mat-slide-toggle formControlName="enabled">Enabled</mat-slide-toggle>
-    </div>
-
 
     <div class="block1-5">
       <mat-form-field color="accent" class="formField">
@@ -76,29 +71,12 @@
     </div>
 
 
-    <div class="block1-5">MEASUREMENT UNITS</div>
-    <div>ID</div>
-    <div>ATTRIBUTE</div>
-    <div>QUANTITY</div>
-    <div>UNIT</div>
+    <div class="block1-5">
+      <product-feature></product-feature>
+    </div>
 
-    <div>1</div>
-    <div>Pack</div>
-    <div>6</div>
-    <div>Unidades</div>
-
-    <div>2</div>
-    <div>Altura</div>
-    <div>30</div>
-    <div>Cms</div>
-
-    <div>3</div>
-    <div>Capacidad</div>
-    <div>1</div>
-    <div>Lts</div>
 
     <div>STOCK:</div>
-
     <div>
       <mat-form-field color="accent">
         <input matInput placeholder="Minimum stock" formControlName="minimunStock">
@@ -139,15 +117,51 @@
     </div>
 
 
-    <div class="block1-5">
+    <div class="block1-2">
       <mat-form-field color="accent">
         <input matInput placeholder="Ex. file.jpg" formControlName="image">
       </mat-form-field>
     </div>
 
+    <div class="block2-3">
+    </div>
 
+    <div class="block3-4">
+      <mat-form-field color="accent" class="formField">
+        <input matInput placeholder="Content" formControlName="contentQuantity" required>
+
+        <mat-error
+          *ngIf="contentQuantityField.errors && contentQuantityField.touched && contentQuantityField.hasError('required')">
+          Please fill this field.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="block4-5">
+      <mat-form-field appearance="fill" color="accent">
+        <mat-label>Measurement Unit</mat-label>
+        <mat-select placeholder="Measurement Unit" formControlName="contentMeasurementUnitID" required>
+          <mat-option *ngFor="let measurementUnit of measurementUnits" [value]="measurementUnit.id">
+            {{measurementUnit.shortDescription}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="contentMeasurementUnitIDField.errors && contentMeasurementUnitIDField.touched && contentMeasurementUnitIDField.hasError('required')">
+          Please fill this field.
+        </mat-error>
+
+      </mat-form-field>
+    </div>
+
+    <div class="block1-3">
+      <mat-slide-toggle formControlName="enabledToBuy">Enabled To Buy</mat-slide-toggle>
+    </div>
+    <div class="block3-5">
+      <mat-slide-toggle formControlName="enabledToSell">Enabled To Sell</mat-slide-toggle>
+    </div>
+
+    
     <!-- action buttons-->
-    <div mat-dialog-actions>
+    <div mat-dialog-actions class="block1-5">
       <button mat-button [type]="submit" [disabled]="!form.valid">Save</button>
       <button mat-button (click)="closeClick()" tabindex="-1">Cancel</button>
     </div>

@@ -1,0 +1,60 @@
+
+<div mat-dialog-title class="mat-dialog-title">Features</div>
+
+<form class="container" mat-dialog-content [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
+
+  <div class="block1-2">
+    <mat-form-field appearance="fill" color="accent">
+      <mat-label>Attribute</mat-label>
+      <mat-select placeholder="Attribute" formControlName="productAttributeID">
+        <mat-option *ngFor="let productAttribute of productAttributes" [value]="productAttribute.id">
+          {{productAttribute.shortDescription}}
+        </mat-option>
+      </mat-select>
+
+      <mat-error
+        *ngIf="productAttributeIDField.errors && productAttributeIDField.touched && productAttributeIDField.hasError('required')">
+        Please fill this field.
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+
+  <div class="block2-4">
+    <mat-form-field color="accent" class="formField">
+      <input matInput placeholder="About" formControlName="about" required>
+      <mat-hint align="end">{{aboutField.value.length}} / 50</mat-hint>
+
+      <mat-error *ngIf="aboutField.errors && aboutField.touched && aboutField.hasError('required')">
+        Please fill this field.
+      </mat-error>
+      <mat-error *ngIf="aboutField.errors && aboutField.touched && aboutField.hasError('minlength')">
+        Minimum characters are required.
+      </mat-error>
+      <mat-error *ngIf="aboutField.errors && aboutField.touched && aboutField.hasError('maxlength')">
+        Maximum length exceeded.
+      </mat-error>
+
+    </mat-form-field>
+  </div>
+
+  <div class="block4-5">
+    <button mat-icon-button color="accent">
+      <mat-icon aria-label="add" matTooltip="Add" matTooltipPosition="above" (click)="pushProductAttributeClick()">add
+      </mat-icon>
+    </button>
+  </div>
+
+  <div class="label block1-2">ATTRIBUTE</div>
+  <div class="label block2-4">ABOUT</div>
+  <div class="value"></div>
+
+  <div class="value">Altura</div>
+  <div class="value block2-4">33 cms</div>
+  <div class="value">
+    <button mat-icon-button color="primary" (click)="deleteProductAttributeClick()">
+      <mat-icon aria-label="delete" matTooltip="Delete" matTooltipPosition="above">delete</mat-icon>
+    </button>
+  </div>
+
+</form>

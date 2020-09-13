@@ -37,10 +37,10 @@
         </ng-container>
 
         <!-- Enabled Column -->
-        <ng-container matColumnDef="enabled">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> ENABLED </mat-header-cell>
+        <ng-container matColumnDef="enabledToSell">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ENABLED TO SELL </mat-header-cell>
             <mat-cell *matCellDef="let element">
-                <div *ngIf="element.enabled then thenBlock else elseBlock"></div>
+                <div *ngIf="element.enabledToSell then thenBlock else elseBlock"></div>
 
                 <ng-template #thenBlock><span class="material-icons">check</span></ng-template>
                 <ng-template #elseBlock><span class="material-icons">close</span></ng-template>

@@ -1,4 +1,4 @@
-import {IBrand} from './brand';
+import { IBrand } from './brand';
 
 export interface IProduct {
     id?: number;
@@ -9,9 +9,10 @@ export interface IProduct {
     barCode?: number,
     minimunStock: number,
     criticalStock: number,
-    maximunStock: number,    
+    maximunStock: number,
     brandID: number,
-    enabled: boolean;
+    enabledToBuy: boolean;
+    enabledToSell: boolean;
     image?: string;
     created?: Date
     brand: IBrand;

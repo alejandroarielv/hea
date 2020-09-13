@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../../services/products-service.service';
 import { LabelsService } from '../../../services/labels-service.service';
 import { BrandsService } from '../../../services/brands-service.service';
+import { MeasurementUnitsService } from '../../../services/measurementUnits-service.service';
 import { ShippingTypesService } from '../../../services/shippingTypes-service.service';
 
 import { IProduct } from '../../../models/product';
 import { ILabel } from '../../../models/label';
 import { IBrand } from '../../../models/brand';
+import { IMeasurementUnit } from '../../../models/measurementUnit';
 import { IShippingType } from '../../../models/shippingType';
 import { IDataToSelect } from '../../../helper/chips-selection/IDataToSelect-chips-selection';
 
@@ -30,6 +32,7 @@ export class ProductAddDialogComponent implements OnInit {
   shippingTypesToSelect: IDataToSelect[] = [];
 
   brands: IBrand[];
+  measurementUnits: IMeasurementUnit[];
 
   constructor(
     public dialogRef: MatDialogRef<ProductAddDialogComponent>,
@@ -37,6 +40,7 @@ export class ProductAddDialogComponent implements OnInit {
     private labelService: LabelsService,
     private shippingTypeService: ShippingTypesService,
     private brandService: BrandsService,
+    private measurementUnitService: MeasurementUnitsService,
     private formBuilder: FormBuilder,
   ) {
     dialogRef.disableClose = true;
@@ -48,6 +52,7 @@ export class ProductAddDialogComponent implements OnInit {
     this.getShippingTypes();
 
     this.getBrands();
+    this.getMeasurementUnits();
   }
 
   private getLabels() {
@@ -61,7 +66,7 @@ export class ProductAddDialogComponent implements OnInit {
 
   private prepareLabelsToSelect() {
     this.labels.forEach(el => {
-      this.labelsToSelect.push({key: el.id, value: el.shortDescription});
+      this.labelsToSelect.push({ key: el.id, value: el.shortDescription });
     });
   }
 
@@ -77,13 +82,19 @@ export class ProductAddDialogComponent implements OnInit {
 
   private prepareShippingTypesToSelect() {
     this.shippingTypes.forEach(el => {
-      this.shippingTypesToSelect.push({key: el.id, value: el.shortDescription});
+      this.shippingTypesToSelect.push({ key: el.id, value: el.shortDescription });
     });
   }
 
   private getBrands() {
     this.brandService.getBrands().subscribe(
       data => { this.brands = data.brands; }
+    );
+  }
+
+  private getMeasurementUnits() {
+    this.measurementUnitService.getMeasurementUnits().subscribe(
+      data => { this.measurementUnits = data.measurementUnits; }
     );
   }
 
@@ -99,7 +110,10 @@ export class ProductAddDialogComponent implements OnInit {
       criticalStock: ['0', [Validators.required, Validators.minLength(1), Validators.min(0), Validators.max(99999)]],
       brandID: ['', [Validators.required]],
       image: ['', []],
-      enabled: ['', []]
+      contentQuantity: ['1', [Validators.required, Validators.minLength(1), Validators.min(1), Validators.max(999)]],
+      contentMeasurementUnitID: ['', [Validators.required]],
+      enabledToBuy: ['true', []],
+      enabledToSell: ['true', []]
     });
   }
 
@@ -169,8 +183,21 @@ export class ProductAddDialogComponent implements OnInit {
   get imageField() {
     return this.form.get('image');
   }
-  get enabledField() {
-    return this.form.get('enabled');
+
+  get contentQuantityField() {
+    return this.form.get('contentQuantity');
+  }
+
+  get contentMeasurementUnitIDField() {
+    return this.form.get('contentMeasurementUnitID');
+  }
+
+
+  get enabledToBuyField() {
+    return this.form.get('enabledToBuy');
+  }
+  get enabledToSellField() {
+    return this.form.get('enabledToSell');
   }
 
 }

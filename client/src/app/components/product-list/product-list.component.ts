@@ -31,7 +31,7 @@ import { Observable } from 'rxjs';
 export class ProductListComponent implements OnInit {
 
   data: IProduct[] = [];
-  displayedColumns: string[] = ['id', 'sku', 'shortDescription', 'brandDescription', 'enabled', 'options'];
+  displayedColumns: string[] = ['id', 'sku', 'shortDescription', 'brandDescription', 'enabledToSell', 'options'];
   dataSource = new MatTableDataSource(this.data);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -174,7 +174,8 @@ export class ProductListComponent implements OnInit {
         criticalStock: +element[7],
         maximunStock: +element[8],
         brandID: +element[9],
-        enabled: element[10] == '1',
+        enabledToSell: element[10] == '1',
+        enabledToBuy: element[10] == '1',
         image: element[11],
         brand: brand
       }
@@ -248,12 +249,16 @@ export class ProductListComponent implements OnInit {
             style: 'header'
           },
           {
-            text: 'ENABLED',
+            text: 'ENABLED TO BUY',
             style: 'header'
           },
+          {
+            text: 'ENABLED TO SELL',
+            style: 'header'
+          }
           ],
           ...data.map(el => {
-            return [el.description, el.shortDescription, el.created, el.enabled];
+            return [el.id, el.description, el.shortDescription, el.enabledToBuy, el.enabledToSell];
           })
         ]
       }

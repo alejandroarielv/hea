@@ -47,9 +47,13 @@ import { ProductViewDialogComponent } from './dialogs/product/view/product.view.
 import { ProductAddDialogComponent } from './dialogs/product/add/product.add.dialog.component';
 import { ProductEditDialogComponent } from './dialogs/product/edit/product.edit.dialog.component';
 
+import { ProductFeatureComponent } from './dialogs/product-feature/product-feature';
+
 import { CsvDataDialogComponent } from './helper/csv-gen/csv-data.dialog.component';
 import { ImportDataDialogComponent } from './helper/csv-parser/csv-parser.dialog.component';
 import { ChipsSelection } from './helper/chips-selection/chips-selection';
+
+
 
 @NgModule({
   declarations: [
@@ -87,6 +91,8 @@ import { ChipsSelection } from './helper/chips-selection/chips-selection';
     ProductViewDialogComponent,
     ProductAddDialogComponent,
     ProductEditDialogComponent,
+
+    ProductFeatureComponent,
 
     CsvDataDialogComponent,
     ImportDataDialogComponent,
