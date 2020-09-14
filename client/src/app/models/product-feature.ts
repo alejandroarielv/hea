@@ -1,8 +1,10 @@
 
+import { IProductAttribute } from '../models/productAttribute';
+
 export interface IProductFeature {
     id?: number,
-    prductID: number,
-    productAttributeID: number,
+    productID: number,
+    productAttribute: IProductAttribute,
     about: string,
     created?: Date
 }

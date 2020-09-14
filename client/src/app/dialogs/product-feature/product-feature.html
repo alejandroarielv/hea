@@ -1,4 +1,3 @@
-
 <div mat-dialog-title class="mat-dialog-title">Features</div>
 
 <form class="container" mat-dialog-content [formGroup]="form" (ngSubmit)="onSubmit(form)" novalidate>
@@ -39,22 +38,25 @@
   </div>
 
   <div class="block4-5">
-    <button mat-icon-button color="accent">
-      <mat-icon aria-label="add" matTooltip="Add" matTooltipPosition="above" (click)="pushProductAttributeClick()">add
+    <button mat-icon-button color="accent" [disabled]="!form.valid">
+      <mat-icon aria-label="Add feature" matTooltip="Add feature" matTooltipPosition="above"
+        (click)="pushProductFeatureClick()">add
       </mat-icon>
     </button>
   </div>
 
   <div class="label block1-2">ATTRIBUTE</div>
   <div class="label block2-4">ABOUT</div>
-  <div class="value"></div>
+  <div class="label block4-5"></div>
 
-  <div class="value">Altura</div>
-  <div class="value block2-4">33 cms</div>
-  <div class="value">
-    <button mat-icon-button color="primary" (click)="deleteProductAttributeClick()">
-      <mat-icon aria-label="delete" matTooltip="Delete" matTooltipPosition="above">delete</mat-icon>
-    </button>
-  </div>
+  <ng-container *ngFor="let productFeature of productFeatures; let idx = index">
+    <div class="value">{{productFeature.productAttribute.shortDescription}}</div>
+    <div class="value block2-4">{{productFeature.about}}</div>
+    <div class="value block4-5">
+      <button mat-icon-button color="primary" (click)="deleteProductFeatureClick(idx)">
+        <mat-icon aria-label="delete feature" matTooltip="Delete feature" matTooltipPosition="above">delete</mat-icon>
+      </button>
+    </div>
+  </ng-container>
 
 </form>

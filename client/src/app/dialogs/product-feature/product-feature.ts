@@ -13,16 +13,16 @@ import { ProductAttributesService } from '../../services/productAttributes-servi
 
 export class ProductFeatureComponent implements OnInit {
 
-    //@Input("productFeatures") productFeatures: IProductFeature[];
+    //@Input("productFeatures") 
+    productFeatures: IProductFeature[] = [];
 
     productAttributes: IProductAttribute[] = [];
 
     form: FormGroup;
-    formDataCtrl = new FormControl([]);
 
     constructor(
         private productAttributesService: ProductAttributesService,
-        private formBuilder: FormBuilder,
+        private formBuilder: FormBuilder
     ) { }
 
     ngOnInit() {
@@ -32,11 +32,11 @@ export class ProductFeatureComponent implements OnInit {
 
     private buildForm() {
         this.form = this.formBuilder.group({
-          productAttributeID: ['', [Validators.required]],
-          about: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]]
+            productAttributeID: ['', [Validators.required]],
+            about: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]]
         });
-      }
-    
+    }
+
 
     private getProductAttributes() {
         this.productAttributesService.getProductAttributes().subscribe(
@@ -45,17 +45,45 @@ export class ProductFeatureComponent implements OnInit {
     }
 
 
-    pushProductAttributeClick() {}
-    deleteProductAttributeClick() {}
+    pushProductFeatureClick() {
 
-    onSubmit(form) {}
+        console.log('form ', this.form);
+
+        //Check dont let insert duplicate attributes
+        const productAttributeIDToAdd: number = this.form.controls.productAttributeID.value;
+        if ((this.productFeatures.findIndex(el => el.productAttribute.id == productAttributeIDToAdd)) != -1) return;
+
+        //id = -1 are new records
+        const newProductFeature: IProductFeature = {
+            id: -1,
+            productID: 0,
+            productAttribute: {
+                id: this.form.controls.productAttributeID.value,
+                description: 'des',
+                shortDescription: 'sdes',
+                enabled: true,
+            },
+            about: this.form.controls.about.value,
+        };
+
+        this.productFeatures.push(newProductFeature);
+        this.form.reset(this.form.controls.productAttributeID);
+        this.form.reset(this.form.controls.about);
+    }
+
+
+    deleteProductFeatureClick(index) { 
+        this.productFeatures.splice(index, 1);
+    }
+
+    onSubmit(form) { }
 
     //Getters form fields
-    get productAttributeIDField(){
+    get productAttributeIDField() {
         return this.form.get('productAttributeID');
     }
-    
-    get aboutField(){
+
+    get aboutField() {
         return this.form.get('about');
     }
 
