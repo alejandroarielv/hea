@@ -47,33 +47,29 @@ export class ProductFeatureComponent implements OnInit {
 
     pushProductFeatureClick() {
 
-        console.log('form ', this.form);
-
         //Check dont let insert duplicate attributes
         const productAttributeIDToAdd: number = this.form.controls.productAttributeID.value;
         if ((this.productFeatures.findIndex(el => el.productAttribute.id == productAttributeIDToAdd)) != -1) return;
 
-        //id = -1 are new records
+        //id = -1 are new records 
+        //id = -2 delete old records
         const newProductFeature: IProductFeature = {
             id: -1,
             productID: 0,
-            productAttribute: {
-                id: this.form.controls.productAttributeID.value,
-                description: 'des',
-                shortDescription: 'sdes',
-                enabled: true,
-            },
+            productAttribute: this.productAttributes.
+            filter(productAttribute => productAttribute.id == productAttributeIDToAdd)[0],
             about: this.form.controls.about.value,
         };
 
         this.productFeatures.push(newProductFeature);
-        this.form.reset(this.form.controls.productAttributeID);
-        this.form.reset(this.form.controls.about);
+        this.buildForm();
     }
 
 
-    deleteProductFeatureClick(index) { 
-        this.productFeatures.splice(index, 1);
+    deleteProductFeatureClick(index) {
+        //id = -1 are new records 
+        //id = -2 delete old records
+        this.productFeatures[index].id = -2;
     }
 
     onSubmit(form) { }

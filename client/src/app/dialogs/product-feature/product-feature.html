@@ -50,13 +50,17 @@
   <div class="label block4-5"></div>
 
   <ng-container *ngFor="let productFeature of productFeatures; let idx = index">
-    <div class="value">{{productFeature.productAttribute.shortDescription}}</div>
-    <div class="value block2-4">{{productFeature.about}}</div>
-    <div class="value block4-5">
-      <button mat-icon-button color="primary" (click)="deleteProductFeatureClick(idx)">
-        <mat-icon aria-label="delete feature" matTooltip="Delete feature" matTooltipPosition="above">delete</mat-icon>
-      </button>
-    </div>
+    <ng-container *ngIf="productFeature.id != -2">
+
+      <div class="value" *ngIf="productFeature.id != -2">{{productFeature.productAttribute.shortDescription}}</div>
+      <div class="value block2-4">{{productFeature.about}}</div>
+      <div class="value block4-5">
+        <button mat-icon-button color="primary" (click)="deleteProductFeatureClick(idx)">
+          <mat-icon aria-label="delete feature" matTooltip="Delete feature" matTooltipPosition="above">delete</mat-icon>
+        </button>
+      </div>
+
+    </ng-container> 
   </ng-container>
 
 </form>
