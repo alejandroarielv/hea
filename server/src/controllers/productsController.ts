@@ -10,8 +10,8 @@ class ProductsController {
                                     'shortDescription', product.shortDescription, 'about', about, 
                                     'sku', sku, 'barCode', barCode, 'minimunStock', minimunStock, 
                                     'criticalStock', criticalStock, 'maximunStock', maximunStock,
-                                    'brandID', brandID, 'image', image, 'enabled', product.enabled, 
-                                    'created', product.created, 
+                                    'brandID', brandID, 'image', image, 'enabledToSell', product.enabledToSell, 
+                                    'enabledToBuy', product.enabledToBuy, 'created', product.created, 
                                     'brand', JSON_OBJECT(
                                                         'id', brand.id, 'description', brand.description, 
                                                         'shortDescription', brand.shortDescription,
@@ -33,8 +33,8 @@ class ProductsController {
             'shortDescription', product.shortDescription, 'about', about, 
             'sku', sku, 'barCode', barCode, 'minimunStock', minimunStock, 
             'criticalStock', criticalStock, 'maximunStock', maximunStock,
-            'brandID', brandID, 'image', image, 'enabled', product.enabled, 
-            'created', product.created, 
+            'brandID', brandID, 'image', image, 'enabledToSell', product.enabledToSell, 
+            'enabledToBuy', product.enabledToBuy,'created', product.created, 
             'brand', JSON_OBJECT(
                                 'id', brand.id, 'description', brand.description, 
                                 'shortDescription', brand.shortDescription,

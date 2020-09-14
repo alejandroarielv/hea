@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { FormControl, Validators, FormBuilder, FormGroup } from "@angular/forms";
+import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { IProductFeature } from '../../models/product-feature';
 import { IProductAttribute } from '../../models/productAttribute';
 import { ProductAttributesService } from '../../services/productAttributes-service.service';
-
+import { ProductFeaturesService } from '../../services/product-features-service.service';
 
 @Component({
     selector: "product-feature",
@@ -13,21 +13,23 @@ import { ProductAttributesService } from '../../services/productAttributes-servi
 
 export class ProductFeatureComponent implements OnInit {
 
-    //@Input("productFeatures") 
-    productFeatures: IProductFeature[] = [];
+    @Input("productID") productID: number;
 
+    productFeatures: IProductFeature[] = [];
     productAttributes: IProductAttribute[] = [];
 
     form: FormGroup;
 
     constructor(
         private productAttributesService: ProductAttributesService,
+        private productFeaturesService: ProductFeaturesService,
         private formBuilder: FormBuilder
     ) { }
 
     ngOnInit() {
         this.buildForm();
         this.getProductAttributes();
+        this.getProductFeatures();
     }
 
     private buildForm() {
@@ -44,9 +46,14 @@ export class ProductFeatureComponent implements OnInit {
         );
     }
 
+    private getProductFeatures() {
+        this.productFeaturesService.getProductFeatures(this.productID).subscribe(
+            res => this.productFeatures = res.productFeatures
+        );
+    }
+
 
     pushProductFeatureClick() {
-
         //Check dont let insert duplicate attributes
         const productAttributeIDToAdd: number = this.form.controls.productAttributeID.value;
         if ((this.productFeatures.findIndex(el => el.productAttribute.id == productAttributeIDToAdd)) != -1) return;
