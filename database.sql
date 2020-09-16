@@ -155,70 +155,19 @@ describe product_feature;
 
 
 
-
-
-
-
-
-
-
-productvariants att type suppliers related products Frequently bought together priceLists receipts delivery orders stock wareshouses reglas de abastecimiento / reordering idiomas imageLists traceability dbdesigner
-SELECT
-    p.*,
-    JSON_OBJECT(
-        'id',
-        id,
-        'project_name',
-        project_name,
-        'parent_id',
-        parent_id
-    ) js
-FROM
-    tbl_projects p;
-
-SELECT
-    JSON_OBJECT('projects', JSON_ARRAYAGG(js)) results
-FROM
-    (
-        SELECT
-            JSON_OBJECT(
-                'id',
-                p.id,
-                'project_name',
-                p.project_name,
-                'parent_id',
-                p.parent_id,
-                'children',
-                JSON_ARRAYAGG(
-                    JSON_OBJECT(
-                        'id',
-                        p1.id,
-                        'project_name',
-                        p1.project_name,
-                        'parent_id',
-                        p1.parent_id
-                    )
-                )
-            ) js
-        FROM
-            tbl_projects p
-            LEFT JOIN tbl_projects p1 ON p.id = p1.parent_id
-        WHERE
-            p.parent_id = 0
-        GROUP BY
-            p.id,
-            p.project_name,
-            p.parent_id
-    ) x
-SELECT
-    JSON_OBJECT(
-        "id",
-        p.id,
-        "desc",
-        p.description,
-        "brand",
-        JSON_OBJECT(b.id, b.description)
-    ) as product
-FROM
-    products as p
-    JOIN brands as b ON p.brandID = b.id;
+productvariants 
+suppliers 
+related products 
+Frequently 
+bought together 
+priceLists 
+receipts 
+delivery 
+orders 
+stock 
+wareshouses 
+reglas de abastecimiento / reordering 
+idiomas 
+imageLists 
+traceability 
+dbdesigner

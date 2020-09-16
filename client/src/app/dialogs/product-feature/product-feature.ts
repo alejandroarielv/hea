@@ -59,7 +59,7 @@ export class ProductFeatureComponent implements OnInit {
         if ((this.productFeatures.findIndex(el => el.productAttribute.id == productAttributeIDToAdd)) != -1) return;
 
         //id = -1 are new records 
-        //id = -2 delete old records
+        //id = -2 are old records deleted
         const newProductFeature: IProductFeature = {
             id: -1,
             productID: 0,
@@ -75,7 +75,7 @@ export class ProductFeatureComponent implements OnInit {
 
     deleteProductFeatureClick(index) {
         //id = -1 are new records 
-        //id = -2 delete old records
+        //id = -2 are old records deleted
         this.productFeatures[index].id = -2;
     }
 

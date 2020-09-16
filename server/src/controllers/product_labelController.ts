@@ -5,7 +5,7 @@ class Product_labelController {
 
     public async list(req: Request, res: Response): Promise<any> {
 
-        const product_labels = (await pool).query('select * from product_labels')
+        const product_labels = (await pool).query('select * from product_labels where productID = ?', [req.params.id])
             .then((product_labels) => {
                 res.status(200).json({ message: 'Listed.', product_labels })
             });
