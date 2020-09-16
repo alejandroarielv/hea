@@ -47,9 +47,11 @@ export class ProductFeatureComponent implements OnInit {
     }
 
     private getProductFeatures() {
-        this.productFeaturesService.getProductFeatures(this.productID).subscribe(
-            res => this.productFeatures = res.productFeatures
-        );
+        if (this.productID != 0) {
+            this.productFeaturesService.getProductFeatures(this.productID).subscribe(
+                res => this.productFeatures = res.productFeatures
+            );
+        }
     }
 
 
@@ -64,7 +66,7 @@ export class ProductFeatureComponent implements OnInit {
             id: -1,
             productID: 0,
             productAttribute: this.productAttributes.
-            filter(productAttribute => productAttribute.id == productAttributeIDToAdd)[0],
+                filter(productAttribute => productAttribute.id == productAttributeIDToAdd)[0],
             about: this.form.controls.about.value,
         };
 

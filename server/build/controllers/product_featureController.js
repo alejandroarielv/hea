@@ -12,23 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.product_labelsController = void 0;
+exports.product_featuresController = void 0;
 const database_1 = __importDefault(require("../database"));
-class Product_labelController {
+class Product_featureController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const product_labels = (yield database_1.default).query('select * from product_labels where productID = ?', [req.params.id])
-                .then((product_labels) => {
-                res.status(200).json({ message: 'Listed.', product_labels });
+            const product_features = (yield database_1.default).query('select * from product_features where productID = ?', [req.params.id])
+                .then((product_features) => {
+                res.status(200).json({ message: 'Listed.', product_features });
             });
         });
     }
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const game = (yield database_1.default).query('select * from product_labels where id = ?', [req.params.id])
-                .then((product_labels) => {
-                if (Array.isArray(product_labels) && product_labels.length > 0) {
-                    res.status(200).json({ message: 'Listed.', product_labels });
+            const game = (yield database_1.default).query('select * from product_features where id = ?', [req.params.id])
+                .then((product_features) => {
+                if (Array.isArray(product_features) && product_features.length > 0) {
+                    res.status(200).json({ message: 'Listed.', product_features });
                 }
                 else {
                     res.status(404).json({ message: 'Not found' });
@@ -38,22 +38,22 @@ class Product_labelController {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            (yield database_1.default).query('insert into product_labels set ?', [req.body]);
+            (yield database_1.default).query('insert into product_features set ?', [req.body]);
             res.status(200).json({ message: 'Created.' });
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            (yield database_1.default).query('update product_labels set ? where id = ?', [req.body, id]);
+            (yield database_1.default).query('update product_features set ? where id = ?', [req.body, id]);
             res.status(200).json({ message: 'Updated.' });
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            (yield database_1.default).query('delete from product_labels where id = ?', [req.params.id]);
+            (yield database_1.default).query('delete from product_features where id = ?', [req.params.id]);
             res.status(200).json({ message: 'Deleted.' });
         });
     }
 }
-exports.product_labelsController = new Product_labelController();
+exports.product_featuresController = new Product_featureController();
