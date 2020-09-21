@@ -1,5 +1,5 @@
 import { MatDialogRef } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { ProductsService } from '../../../services/products-service.service';
 import { LabelsService } from '../../../services/labels-service.service';
 import { BrandsService } from '../../../services/brands-service.service';
@@ -12,6 +12,9 @@ import { IBrand } from '../../../models/brand';
 import { IMeasurementUnit } from '../../../models/measurementUnit';
 import { IShippingType } from '../../../models/shippingType';
 import { IDataToSelect } from '../../../helper/chips-selection/IDataToSelect-chips-selection';
+import { ChipsSelection } from '../../../helper/chips-selection/chips-selection';
+import { ProductFeatureComponent } from '../../../dialogs/product-feature/product-feature';
+
 
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
@@ -22,6 +25,12 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 })
 
 export class ProductAddDialogComponent implements OnInit {
+
+  @ViewChildren(ChipsSelection) childProductMultipleSelections: QueryList<ChipsSelection>;
+  @ViewChild(ProductFeatureComponent) childProductFeatures: ProductFeatureComponent;
+
+  regEx_OnlyNumbers = '^[0-9]+$';
+  regEx_Empty_OR_OnlyNumbers = '(^[0-9]+$|^$)';
 
   form: FormGroup;
 
@@ -70,7 +79,6 @@ export class ProductAddDialogComponent implements OnInit {
     });
   }
 
-
   private getShippingTypes() {
     this.shippingTypeService.getShippingTypes().subscribe(
       data => {
@@ -100,17 +108,17 @@ export class ProductAddDialogComponent implements OnInit {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      sku: ['', [Validators.required]],
+      sku: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      barCode: ['', [Validators.maxLength(12), Validators.pattern(this.regEx_Empty_OR_OnlyNumbers)]],
+      brandID: ['', [Validators.required]],
       description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]],
       shortDescription: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      about: ['', []],
-      barCode: ['', []],
-      minimunStock: ['0', [Validators.required, Validators.minLength(1), Validators.min(0), Validators.max(99999)]],
-      maximunStock: ['0', [Validators.required, Validators.minLength(1), Validators.min(0), Validators.max(99999)]],
-      criticalStock: ['0', [Validators.required, Validators.minLength(1), Validators.min(0), Validators.max(99999)]],
-      brandID: ['', [Validators.required]],
+      about: ['', [Validators.maxLength(500)]],
+      minimunStock: ['0', [Validators.required, Validators.min(0), Validators.max(99999), Validators.pattern(this.regEx_OnlyNumbers)]],
+      maximunStock: ['0', [Validators.required, Validators.min(0), Validators.max(99999), Validators.pattern(this.regEx_OnlyNumbers)]],
+      criticalStock: ['0', [Validators.required, Validators.min(0), Validators.max(99999), Validators.pattern(this.regEx_OnlyNumbers)]],
       image: ['', []],
-      contentQuantity: ['1', [Validators.required, Validators.minLength(1), Validators.min(1), Validators.max(999)]],
+      contentQuantity: ['1', [Validators.required, Validators.min(1), Validators.max(999), Validators.pattern(this.regEx_OnlyNumbers)]],
       contentMeasurementUnitID: ['', [Validators.required]],
       enabledToBuy: ['true', []],
       enabledToSell: ['true', []]
@@ -120,6 +128,14 @@ export class ProductAddDialogComponent implements OnInit {
   onSubmit({ value, valid }: { value: IProduct, valid: boolean }) {
 
     if (valid) {
+
+      console.log('PF ', this.childProductFeatures.productFeatures);
+      console.log('CPms ', this.childProductMultipleSelections.first.getSelectedItems());
+      console.log('CPms ', this.childProductMultipleSelections.last.getSelectedItems());
+
+      console.log('valid form! ');
+      return;
+
       this.productService.saveProduct(value).subscribe(
         res => {
           this.dialogRef.close({ data: 'ADD_BUTTON_CLICKED' });
@@ -191,7 +207,6 @@ export class ProductAddDialogComponent implements OnInit {
   get contentMeasurementUnitIDField() {
     return this.form.get('contentMeasurementUnitID');
   }
-
 
   get enabledToBuyField() {
     return this.form.get('enabledToBuy');

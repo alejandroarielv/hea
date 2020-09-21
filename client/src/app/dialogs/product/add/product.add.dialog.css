@@ -11,6 +11,11 @@
   row-gap              : 10px;
 }
 
+.bordered {
+  border-style: groove;
+  margin: 3px;
+}
+
 .label {
   font-weight: bold;
   margin: auto;

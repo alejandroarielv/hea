@@ -8,8 +8,8 @@
       <mat-form-field color="accent">
         <input matInput placeholder="Sku" formControlName="sku" required>
 
-        <mat-error *ngIf="skuField.errors && skuField.touched && skuField.hasError('required')">
-          Please fill this field.
+        <mat-error *ngIf="skuField.errors && skuField.touched">
+          Please fill this field. Minimun 3 characters. Maximun 15 characters.
         </mat-error>
       </mat-form-field>
     </div>
@@ -17,6 +17,10 @@
     <div>
       <mat-form-field color="accent">
         <input matInput placeholder="Bar code" formControlName="barCode">
+
+        <mat-error *ngIf="barCodeField.errors && barCodeField.touched">
+          This field accepts only numbers. Maximun 12 characters.
+        </mat-error>
       </mat-form-field>
     </div>
 
@@ -28,10 +32,10 @@
             {{brand.shortDescription}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="brandIDField.errors && brandIDField.touched && brandIDField.hasError('required')">
+
+        <mat-error *ngIf="brandIDField.errors && brandIDField.touched">
           Please fill this field.
         </mat-error>
-
       </mat-form-field>
     </div>
 
@@ -40,8 +44,8 @@
         <textarea matInput placeholder="Description" formControlName="description" required></textarea>
         <mat-hint align="end">{{descriptionField.value.length}} / 200</mat-hint>
 
-        <mat-error *ngIf="descriptionField.errors && descriptionField.touched && descriptionField.hasError('required')">
-          Please fill this field.
+        <mat-error *ngIf="descriptionField.errors && descriptionField.touched">
+          Please fill this field. Minimun 3 characters. Maximun 200 characters.
         </mat-error>
       </mat-form-field>
     </div>
@@ -52,12 +56,8 @@
         <mat-hint align="end">{{shortDescriptionField.value.length}} / 100</mat-hint>
 
         <mat-error
-          *ngIf="shortDescriptionField.errors && shortDescriptionField.touched && shortDescriptionField.hasError('required')">
-          Please fill this field.
-        </mat-error>
-        <mat-error
-          *ngIf="shortDescriptionField.errors && shortDescriptionField.touched && shortDescriptionField.hasError('minlength')">
-          Minimum characters are required.
+          *ngIf="shortDescriptionField.errors && shortDescriptionField.touched">
+          Please fill this field. Minimun 3 characters. Maximun 100 characters.
         </mat-error>
 
       </mat-form-field>
@@ -67,14 +67,18 @@
       <mat-form-field color="accent" class="formField">
         <mat-label>About</mat-label>
         <textarea matInput placeholder="About this" formControlName="about"></textarea>
+        <mat-hint align="end">{{aboutField.value.length}} / 500</mat-hint>
+
+        <mat-error
+          *ngIf="aboutField.errors && aboutField.touched">
+          Maximun 500 characters.
+        </mat-error>
       </mat-form-field>
     </div>
-
 
     <div class="block1-5">
       <product-feature [productID]="0"></product-feature>
     </div>
-
 
     <div>STOCK:</div>
     <div>
@@ -82,8 +86,8 @@
         <input matInput placeholder="Minimum stock" formControlName="minimunStock">
 
         <mat-error
-          *ngIf="minimunStockField.errors && minimunStockField.touched && minimunStockField.hasError('required')">
-          Please fill this field.
+          *ngIf="minimunStockField.errors && minimunStockField.touched">
+          Please fill this field. It accepts only numbers.
         </mat-error>
       </mat-form-field>
     </div>
@@ -92,8 +96,8 @@
       <mat-form-field color="accent">
         <input matInput placeholder="Critical stock" formControlName="criticalStock">
         <mat-error
-          *ngIf="criticalStockField.errors && criticalStockField.touched && criticalStockField.hasError('required')">
-          Please fill this field.
+          *ngIf="criticalStockField.errors && criticalStockField.touched">
+          Please fill this field. It accepts only numbers.
         </mat-error>
       </mat-form-field>
     </div>
@@ -101,9 +105,8 @@
     <div>
       <mat-form-field color="accent">
         <input matInput placeholder="Maximun stock" formControlName="maximunStock">
-        <mat-error
-          *ngIf="criticalStockField.errors && criticalStockField.touched && criticalStockField.hasError('required')">
-          Please fill this field.
+        <mat-error *ngIf="criticalStockField.errors && criticalStockField.touched">
+          Please fill this field. It accepts only numbers.
         </mat-error>
       </mat-form-field>
     </div>
@@ -131,8 +134,8 @@
         <input matInput placeholder="Content" formControlName="contentQuantity" required>
 
         <mat-error
-          *ngIf="contentQuantityField.errors && contentQuantityField.touched && contentQuantityField.hasError('required')">
-          Please fill this field.
+          *ngIf="contentQuantityField.errors && contentQuantityField.touched">
+          Please fill this field. It accepts only numbers.
         </mat-error>
       </mat-form-field>
     </div>
@@ -145,7 +148,7 @@
             {{measurementUnit.shortDescription}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="contentMeasurementUnitIDField.errors && contentMeasurementUnitIDField.touched && contentMeasurementUnitIDField.hasError('required')">
+        <mat-error *ngIf="contentMeasurementUnitIDField.errors && contentMeasurementUnitIDField.touched">
           Please fill this field.
         </mat-error>
 
