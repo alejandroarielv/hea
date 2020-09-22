@@ -39,7 +39,6 @@ class Product_labelController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             (yield database_1.default).query('insert into product_labels set ?', [req.body]);
-            res.status(200).json({ message: 'Created.' });
         });
     }
     update(req, res) {

@@ -15,6 +15,9 @@ import { IDataToSelect } from '../../../helper/chips-selection/IDataToSelect-chi
 import { ChipsSelection } from '../../../helper/chips-selection/chips-selection';
 import { ProductFeatureComponent } from '../../../dialogs/product-feature/product-feature';
 
+import { Product } from '../../../services/';
+import { ProductFeatureComponent } from '../../../dialogs/product-feature/product-feature';
+
 
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
@@ -133,15 +136,31 @@ export class ProductAddDialogComponent implements OnInit {
       console.log('CPms ', this.childProductMultipleSelections.first.getSelectedItems());
       console.log('CPms ', this.childProductMultipleSelections.last.getSelectedItems());
 
-      console.log('valid form! ');
-      return;
-
       this.productService.saveProduct(value).subscribe(
         res => {
-          this.dialogRef.close({ data: 'ADD_BUTTON_CLICKED' });
+          const data: any = res;
+          if (data.newID && data.newID[0].ID && parseInt(data.newID[0].ID) > 0) {
+
+            const newProductID: number = parseInt(data.newID[0].ID);
+            const labelsSelected = this.childProductMultipleSelections.first.getSelectedItems();
+            const ShippingTypesSelected = this.childProductMultipleSelections.last.getSelectedItems();
+
+
+            this.prod.saveLabel().subscribe(
+              res => { },
+              err => console.error("Error adding LABELS")
+            );
+
+            this.shippingTypeService.saveShippingType(this.childProductMultipleSelections.last.getSelectedItems()).subscribe(
+              res => { },
+              err => console.error("Error adding SHIPPING TYPES")
+            );
+
+            this.dialogRef.close({ data: 'ADD_BUTTON_CLICKED' });
+          }
         },
         err => {
-          console.log("Error adding LABEL", value);
+          console.error("Error adding PRODUCT", value);
           this.dialogRef.close({ data: 'ERROR' });
         }
       );

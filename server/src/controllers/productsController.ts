@@ -17,7 +17,7 @@ class ProductsController {
                                                         'shortDescription', brand.shortDescription,
                                                         'enabled', brand.enabled, 'created', brand.created)) as product
                         FROM products as product JOIN brands as brand ON product.brandID=brand.id;`;
-                        
+
         (await pool)
             .query(query)
             .then((products) => {
@@ -54,8 +54,13 @@ class ProductsController {
     }
 
     public async create(req: Request, res: Response): Promise<void> {
-        (await pool).query('insert into products set ?', [req.body]);
-        res.status(200).json({ message: 'Created.' })
+
+        const conn = (await pool).getConnection();
+        (await conn).query('insert into products set ?;', [req.body]);
+        (await conn).query('select LAST_INSERT_ID() as ID;')
+            .then((newID) => {
+                res.status(200).json({ message: 'Created.', newID });
+            });
     }
 
     public async update(req: Request, res: Response): Promise<void> {

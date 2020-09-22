@@ -26,7 +26,6 @@ class Product_labelController {
 
     public async create(req: Request, res: Response): Promise<void> {
         (await pool).query('insert into product_labels set ?', [req.body]);
-        res.status(200).json({ message: 'Created.' })
     }
     
     public async update(req: Request, res: Response): Promise<void> {
