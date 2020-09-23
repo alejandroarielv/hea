@@ -25,7 +25,7 @@ export class ProductShippingTypesService {
     return this.http.post(`${this.API_URI}/productShippingTypes`, productShippingTypes);
   }
 
-  deleteProductShippingType(id: string) {
+  deleteProductShippingType(id: number) {
     return this.http.delete(`${this.API_URI}/productShippingTypes/${id}`);
   }
 

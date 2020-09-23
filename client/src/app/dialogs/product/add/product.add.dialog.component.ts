@@ -15,11 +15,12 @@ import { IDataToSelect } from '../../../helper/chips-selection/IDataToSelect-chi
 import { ChipsSelection } from '../../../helper/chips-selection/chips-selection';
 import { ProductFeatureComponent } from '../../../dialogs/product-feature/product-feature';
 
-import { Product } from '../../../services/';
-import { ProductFeatureComponent } from '../../../dialogs/product-feature/product-feature';
-
+import { ProductLabelsService } from '../../../services/product-labels-service.service';
+import { ProductShippingTypesService } from '../../../services/product-shippingTypes-service.service';
 
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { IProductLabel } from 'src/app/models/product-label';
+import { IProductShippingType } from 'src/app/models/product-shippingType';
 
 @Component({
   selector: 'app-product-add-dialog',
@@ -38,9 +39,11 @@ export class ProductAddDialogComponent implements OnInit {
   form: FormGroup;
 
   labels: ILabel[];
+  productLabels: IProductLabel[];
   labelsToSelect: IDataToSelect[] = [];
 
   shippingTypes: IShippingType[];
+  productShippingTypes: IProductShippingType[];
   shippingTypesToSelect: IDataToSelect[] = [];
 
   brands: IBrand[];
@@ -49,6 +52,8 @@ export class ProductAddDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ProductAddDialogComponent>,
     private productService: ProductsService,
+    private productLabelsService: ProductLabelsService,
+    private productShippingTypesService: ProductShippingTypesService,
     private labelService: LabelsService,
     private shippingTypeService: ShippingTypesService,
     private brandService: BrandsService,
@@ -61,7 +66,10 @@ export class ProductAddDialogComponent implements OnInit {
 
   ngOnInit() {
     this.getLabels();
+    //this.getProductLabels();
+
     this.getShippingTypes();
+    //this.getProductShippingTypes();
 
     this.getBrands();
     this.getMeasurementUnits();
@@ -75,6 +83,14 @@ export class ProductAddDialogComponent implements OnInit {
       }
     );
   }
+
+  // private getProductLabels() {
+  //   this.productLabelsService.getProductLabels(0).subscribe(
+  //     data => {
+  //       this.productLabels = data.productLabels;
+  //     }
+  //   );
+  // }
 
   private prepareLabelsToSelect() {
     this.labels.forEach(el => {
@@ -90,6 +106,14 @@ export class ProductAddDialogComponent implements OnInit {
       }
     );
   }
+
+  // private getProductShippingTypes() {
+  //   this.productShippingTypesService.getProductShippingTypes(0).subscribe(
+  //     data => {
+  //       this.productShippingTypes = data.productShippingTypes;
+  //     }
+  //   );
+  // }
 
   private prepareShippingTypesToSelect() {
     this.shippingTypes.forEach(el => {
@@ -139,22 +163,99 @@ export class ProductAddDialogComponent implements OnInit {
       this.productService.saveProduct(value).subscribe(
         res => {
           const data: any = res;
+
           if (data.newID && data.newID[0].ID && parseInt(data.newID[0].ID) > 0) {
 
             const newProductID: number = parseInt(data.newID[0].ID);
-            const labelsSelected = this.childProductMultipleSelections.first.getSelectedItems();
-            const ShippingTypesSelected = this.childProductMultipleSelections.last.getSelectedItems();
+
+            const labelChipsSelected = this.childProductMultipleSelections.first.getSelectedItems();
+            var newProductLabels: IProductLabel[] = [];
+            var dltProductLabels: IProductLabel[] = [];
+
+            //Detect removed labels 
+            this.productLabels.forEach(elm => {
+              if (labelChipsSelected.findIndex(chp => chp.key == elm.labelID) == -1) {
+                dltProductLabels.push(
+                  {
+                    id: elm.id,
+                    productID: newProductID,
+                    labelID: elm.labelID
+                  }
+                );
+              }
+            });
+            //And delete removed labels
+            dltProductLabels.forEach(elm => {
+              this.productLabelsService.deleteProductLabel(elm.id).subscribe(
+                res => { },
+                err => console.error("Error adding LABELS")
+                );
+            });
 
 
-            this.prod.saveLabel().subscribe(
-              res => { },
-              err => console.error("Error adding LABELS")
-            );
+            //Detect new labels 
+            labelChipsSelected.forEach(elm => {
+              if (this.productLabels.findIndex(prdLbl => prdLbl.labelID == elm.key) == -1) {
+                newProductLabels.push(
+                  {
+                    productID: newProductID,
+                    labelID: elm.key
+                  }
+                );
+              }
+            });
+            //And add news
+            if(newProductLabels.length > 0 ){
+              this.productLabelsService.saveProductLabels(newProductLabels).subscribe(
+                res => { },
+                err => console.error("Error adding LABELS")
+              );
+            }
 
-            this.shippingTypeService.saveShippingType(this.childProductMultipleSelections.last.getSelectedItems()).subscribe(
-              res => { },
-              err => console.error("Error adding SHIPPING TYPES")
-            );
+            //Do the same with shippingTypes
+            var newProductShippingTypes: IProductShippingType[] = [];
+            var dltProductShippingTypes: IProductShippingType[] = [];
+            const shippingTypeChipsSelected = this.childProductMultipleSelections.last.getSelectedItems();
+
+            //Detect removed labels 
+            this.productShippingTypes.forEach(elm => {
+              if (shippingTypeChipsSelected.findIndex(chp => chp.key == elm.shippingTypeID) == -1) {
+                dltProductShippingTypes.push(
+                  {
+                    id: elm.id,
+                    productID: newProductID,
+                    shippingTypeID: elm.shippingTypeID
+                  }
+                );
+              }
+            });
+            //And delete removed shippingTypes
+            dltProductShippingTypes.forEach(elm => {
+              this.productShippingTypesService.deleteProductShippingType(elm.id).subscribe(
+                res => { },
+                err => console.error("Error adding SHIPPING TYPES")
+                );
+            });
+
+
+            //Detect new shippingTypes 
+            shippingTypeChipsSelected.forEach(elm => {
+              if (this.productShippingTypes.findIndex(prdSht => prdSht.shippingTypeID == elm.key) == -1) {
+                newProductShippingTypes.push(
+                  {
+                    productID: newProductID,
+                    shippingTypeID: elm.key
+                  }
+                );
+              }
+            });
+            //And add news
+            if(newProductShippingTypes.length > 0 ){
+              this.productShippingTypesService.saveProductShippingTypes(newProductShippingTypes).subscribe(
+                res => { },
+                err => console.error("Error adding SHIPPING TYPES")
+              );
+            }
 
             this.dialogRef.close({ data: 'ADD_BUTTON_CLICKED' });
           }
@@ -164,6 +265,7 @@ export class ProductAddDialogComponent implements OnInit {
           this.dialogRef.close({ data: 'ERROR' });
         }
       );
+
     } else {
       console.log("NOT valid form");
       this.form.markAllAsTouched();

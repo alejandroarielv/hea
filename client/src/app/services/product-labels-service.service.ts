@@ -25,7 +25,7 @@ export class ProductLabelsService {
     return this.http.post(`${this.API_URI}/productLabels`, productLabels);
   }
 
-  deleteProductLabel(id: string) {
+  deleteProductLabel(id: number) {
     return this.http.delete(`${this.API_URI}/productLabels/${id}`);
   }
 
