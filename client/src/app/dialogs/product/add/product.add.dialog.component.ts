@@ -1,10 +1,15 @@
 import { MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { ProductsService } from '../../../services/products-service.service';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+
 import { LabelsService } from '../../../services/labels-service.service';
 import { BrandsService } from '../../../services/brands-service.service';
 import { MeasurementUnitsService } from '../../../services/measurementUnits-service.service';
 import { ShippingTypesService } from '../../../services/shippingTypes-service.service';
+import { ProductsService } from '../../../services/products-service.service';
+import { ProductLabelsService } from '../../../services/product-labels-service.service';
+import { ProductShippingTypesService } from '../../../services/product-shippingTypes-service.service';
+import { ProductFeaturesService } from '../../../services/product-features-service.service';
 
 import { IProduct } from '../../../models/product';
 import { ILabel } from '../../../models/label';
@@ -12,15 +17,13 @@ import { IBrand } from '../../../models/brand';
 import { IMeasurementUnit } from '../../../models/measurementUnit';
 import { IShippingType } from '../../../models/shippingType';
 import { IDataToSelect } from '../../../helper/chips-selection/IDataToSelect-chips-selection';
-import { ChipsSelection } from '../../../helper/chips-selection/chips-selection';
-import { ProductFeatureComponent } from '../../../dialogs/product-feature/product-feature';
-
-import { ProductLabelsService } from '../../../services/product-labels-service.service';
-import { ProductShippingTypesService } from '../../../services/product-shippingTypes-service.service';
-
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { IProductLabel } from 'src/app/models/product-label';
 import { IProductShippingType } from 'src/app/models/product-shippingType';
+import { IProductFeature } from 'src/app/models/product-feature';
+import { IProductFeatureExtended, STATUS } from '../../product-feature/product-feature-extended';
+
+import { ChipsSelection } from '../../../helper/chips-selection/chips-selection';
+import { ProductFeatureComponent } from '../../../dialogs/product-feature/product-feature';
 
 @Component({
   selector: 'app-product-add-dialog',
@@ -46,19 +49,22 @@ export class ProductAddDialogComponent implements OnInit {
   productShippingTypes: IProductShippingType[];
   shippingTypesToSelect: IDataToSelect[] = [];
 
+  productFeatures: IProductFeature[];
+
   brands: IBrand[];
   measurementUnits: IMeasurementUnit[];
 
   constructor(
     public dialogRef: MatDialogRef<ProductAddDialogComponent>,
+    private formBuilder: FormBuilder,
+    private labelService: LabelsService,
+    private brandService: BrandsService,
+    private shippingTypeService: ShippingTypesService,
     private productService: ProductsService,
     private productLabelsService: ProductLabelsService,
     private productShippingTypesService: ProductShippingTypesService,
-    private labelService: LabelsService,
-    private shippingTypeService: ShippingTypesService,
-    private brandService: BrandsService,
     private measurementUnitService: MeasurementUnitsService,
-    private formBuilder: FormBuilder,
+    private productFeaturesService: ProductFeaturesService,
   ) {
     dialogRef.disableClose = true;
     this.buildForm();
@@ -73,6 +79,8 @@ export class ProductAddDialogComponent implements OnInit {
 
     this.getBrands();
     this.getMeasurementUnits();
+  
+    // this.getProductFeature();
   }
 
   private getLabels() {
@@ -133,6 +141,14 @@ export class ProductAddDialogComponent implements OnInit {
     );
   }
 
+  // private getProductFeature() {
+  //   this.productFeaturesService.getProductFeatures(0).subscribe(
+  //     data => {
+  //       this.productFeatures = data.productFeatures;
+  //     }
+  //   );
+  // }
+
   private buildForm() {
     this.form = this.formBuilder.group({
       sku: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
@@ -156,9 +172,34 @@ export class ProductAddDialogComponent implements OnInit {
 
     if (valid) {
 
-      console.log('PF ', this.childProductFeatures.productFeatures);
+      console.log('PF ', this.childProductFeatures.productFeaturesExtended);
       console.log('CPms ', this.childProductMultipleSelections.first.getSelectedItems());
       console.log('CPms ', this.childProductMultipleSelections.last.getSelectedItems());
+
+      const productFeaturesSelected = this.childProductFeatures.productFeaturesExtended;
+      var newProductFeatures: IProductFeature[] = [];
+      var dltProductFeatures: IProductFeature[] = [];
+
+      productFeaturesSelected.forEach(elm => {
+        if(elm.status == STATUS.ADDED) {
+          newProductFeatures.push(
+            {
+            elm.productID =
+            elm.about
+            }
+          );
+        }
+
+      });
+
+
+
+
+
+
+
+
+
 
       this.productService.saveProduct(value).subscribe(
         res => {
@@ -189,7 +230,7 @@ export class ProductAddDialogComponent implements OnInit {
               this.productLabelsService.deleteProductLabel(elm.id).subscribe(
                 res => { },
                 err => console.error("Error adding LABELS")
-                );
+              );
             });
 
 
@@ -205,7 +246,7 @@ export class ProductAddDialogComponent implements OnInit {
               }
             });
             //And add news
-            if(newProductLabels.length > 0 ){
+            if (newProductLabels.length > 0) {
               this.productLabelsService.saveProductLabels(newProductLabels).subscribe(
                 res => { },
                 err => console.error("Error adding LABELS")
@@ -234,7 +275,7 @@ export class ProductAddDialogComponent implements OnInit {
               this.productShippingTypesService.deleteProductShippingType(elm.id).subscribe(
                 res => { },
                 err => console.error("Error adding SHIPPING TYPES")
-                );
+              );
             });
 
 
@@ -250,7 +291,7 @@ export class ProductAddDialogComponent implements OnInit {
               }
             });
             //And add news
-            if(newProductShippingTypes.length > 0 ){
+            if (newProductShippingTypes.length > 0) {
               this.productShippingTypesService.saveProductShippingTypes(newProductShippingTypes).subscribe(
                 res => { },
                 err => console.error("Error adding SHIPPING TYPES")
