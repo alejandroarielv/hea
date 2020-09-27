@@ -13,23 +13,23 @@ export class ProductFeaturesService {
   constructor(private http: HttpClient) {
   }
 
-  getProductFeatures(productID): Observable<any> {
+  getProductFeatures(productID: number): Observable<any> {
     return this.http.get(`${this.API_URI}/productFeatures/${productID}`);
   }
 
-  getOneProductFeature(id: string): Observable<any> {
+  getOneProductFeature(id: number): Observable<any> {
     return this.http.get(`${this.API_URI}/productFeatures/${id}`);
   }
 
-  saveProductFeature(productFeature: IProductFeature) {
-    return this.http.post(`${this.API_URI}/productFeatures`, productFeature);
+  saveProductFeature(productFeatures: IProductFeature[]) {
+    return this.http.post(`${this.API_URI}/productFeatures`, productFeatures);
   }
 
-  deleteProductFeature(id: string) {
-    return this.http.delete(`${this.API_URI}/productFeatures/${id}`);
+  deleteProductFeature(ids: number[]) {
+    return this.http.delete(`${this.API_URI}/productFeatures/`, ids);
   }
 
-  updateProductFeature(id: string, updatedProductFeature: IProductFeature): Observable<any> {
-    return this.http.put(`${this.API_URI}/productFeatures/${id}`, updatedProductFeature);
+  updateProductFeature(updatedProductFeatures: IProductFeature[]): Observable<any> {
+    return this.http.put(`${this.API_URI}/productFeatures/`, updatedProductFeatures);
   }
 }

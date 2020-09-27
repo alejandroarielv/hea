@@ -79,7 +79,7 @@ export class ProductAddDialogComponent implements OnInit {
 
     this.getBrands();
     this.getMeasurementUnits();
-  
+
     // this.getProductFeature();
   }
 
@@ -175,30 +175,6 @@ export class ProductAddDialogComponent implements OnInit {
       console.log('PF ', this.childProductFeatures.productFeaturesExtended);
       console.log('CPms ', this.childProductMultipleSelections.first.getSelectedItems());
       console.log('CPms ', this.childProductMultipleSelections.last.getSelectedItems());
-
-      const productFeaturesSelected = this.childProductFeatures.productFeaturesExtended;
-      var newProductFeatures: IProductFeature[] = [];
-      var dltProductFeatures: IProductFeature[] = [];
-
-      productFeaturesSelected.forEach(elm => {
-        if(elm.status == STATUS.ADDED) {
-          newProductFeatures.push(
-            {
-            elm.productID =
-            elm.about
-            }
-          );
-        }
-
-      });
-
-
-
-
-
-
-
-
 
 
       this.productService.saveProduct(value).subscribe(
@@ -298,8 +274,41 @@ export class ProductAddDialogComponent implements OnInit {
               );
             }
 
+
+            //Here ADD, UPD and DLT productFeature
+            const productFeaturesSelected = this.childProductFeatures.productFeaturesExtended;
+            var newProductFeatures: IProductFeature[] = [];
+            var updProductFeatures: IProductFeature[] = [];
+            var dltProductFeatures: IProductFeature[] = [];
+      
+            productFeaturesSelected.forEach(elm => {
+      
+              switch (elm.status) {
+      
+                case STATUS.ADDED:
+                  newProductFeatures.push({
+                    productID: elm.productID, productAttribute: elm.productAttribute, about: elm.about
+                  });
+      
+                case STATUS.UPDATED:
+                  updProductFeatures.push({
+                    productID: elm.productID, productAttribute: elm.productAttribute, about: elm.about
+                  });
+      
+                case STATUS.DELETED:
+                  dltProductFeatures.push({
+                    productID: elm.productID, productAttribute: elm.productAttribute, about: elm.about
+                  });
+      
+              }
+            });
+      
+            this.productFeaturesService.saveProductFeature()
+
+
             this.dialogRef.close({ data: 'ADD_BUTTON_CLICKED' });
           }
+
         },
         err => {
           console.error("Error adding PRODUCT", value);

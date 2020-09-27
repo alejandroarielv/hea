@@ -13,8 +13,8 @@ class Product_featuresRoutes {
         this.router.get('/', product_featuresController.list);
         this.router.get('/:id', product_featuresController.getOne);
         this.router.post('/', product_featuresController.create);
-        this.router.put('/:id', product_featuresController.update);
-        this.router.delete('/:id', product_featuresController.delete);
+        this.router.put('/', product_featuresController.update);
+        this.router.delete('/', product_featuresController.delete);
     }
 
 }
